@@ -1,17 +1,21 @@
 package com.example.solution
 
+import com.example.model.AocException
 import com.example.model.ResponseMessage
 import com.example.plugins.DayPart
 import com.example.solution.day1.Day1
+import com.example.solution.day2.Day2
 import io.ktor.http.*
 import java.lang.Exception
 
 object SolutionNexus {
-  private val solutionsByDay = listOf<Solution>(
-    Day1,
+  private val solutionsByDay = listOf(
+    Day1, Day2
   ).associateBy { it.day }
 
   fun run(request: DayPart) : ResponseMessage {
+    println(solutionsByDay)
+    println(request)
     val solution = solutionsByDay[request.day]
       ?: return ResponseMessage(
         data = "No solutions available for day ${request.day}",
@@ -24,10 +28,17 @@ object SolutionNexus {
     } catch (e: NotImplementedError) {
       ResponseMessage(
         data = "No solution available for part ${request.part} of day ${request.day}",
+        status = HttpStatusCode.NotFound
+      )
+    } catch (e: AocException) {
+      // AocExceptions are used when we know something can go wrong and want to give a helpful error
+      ResponseMessage(
+        data = "Exception on part ${request.part} of day ${request.day}: ${e.message}",
         status = HttpStatusCode.NotFound)
     } catch (e: Exception) {
+      e.printStackTrace()
       ResponseMessage(
-        data = "No solution available for day ${request.day}",
+        data = "Exception on part ${request.part} of day ${request.day}: $e",
         status = HttpStatusCode.NotFound)
     }
   }
