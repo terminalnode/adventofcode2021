@@ -28,4 +28,4 @@ fun Application.configureRouting() {
 }
 
 @Location("/day/{day}/part/{part}")
-class DayPart(val day: Int, val part: Int)
+data class DayPart(val day: Int, val part: Int)
