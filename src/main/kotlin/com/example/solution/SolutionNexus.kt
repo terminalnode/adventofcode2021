@@ -14,8 +14,6 @@ object SolutionNexus {
   ).associateBy { it.day }
 
   fun run(request: DayPart) : ResponseMessage {
-    println(solutionsByDay)
-    println(request)
     val solution = solutionsByDay[request.day]
       ?: return ResponseMessage(
         data = "No solutions available for day ${request.day}",

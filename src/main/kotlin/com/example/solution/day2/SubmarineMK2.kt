@@ -1,8 +1,9 @@
 package com.example.solution.day2
 
-data class Submarine(
+data class SubmarineMK2(
   var horizontalPos: Int = 0,
   var verticalPos: Int = 0,
+  var aim: Int = 0,
 ) {
   private fun parseLine(line: String): Pair<String, Int> {
     val (direction, quantity) = line.split(" ")
@@ -12,9 +13,12 @@ data class Submarine(
   fun readInstruction(line: String) {
     val (direction, quantity) = parseLine(line)
     when (direction) {
-      "forward" -> horizontalPos += quantity
-      "down" -> verticalPos += quantity
-      "up" -> verticalPos -= quantity
+      "forward" -> {
+        horizontalPos += quantity
+        verticalPos += aim * quantity
+      }
+      "down" -> aim += quantity
+      "up" -> aim -= quantity
     }
   }
 
