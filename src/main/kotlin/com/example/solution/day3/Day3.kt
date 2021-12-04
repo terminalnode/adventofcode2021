@@ -1,23 +1,24 @@
 package com.example.solution.day3
 
 import com.example.solution.Solution
-import io.ktor.server.engine.*
 import kotlin.math.floor
 
 object Day3 : Solution(3) {
   override fun run(part: Int): Any {
     return when (part) {
       1 -> partOne()
-      2 -> TODO("Not yet implemented")
+      2 -> partTwo()
       else -> TODO("Not yet implemented")
     }
   }
 
+  fun buildMatrix() = readLines("day3.txt")
+    .map { line ->
+      line.map { it.digitToInt() }
+    }
+
   fun partOne() : Any {
-    val matrix = readLines("day3.txt")
-      .map { line ->
-        line.map { char -> char.digitToInt() }
-      }
+    val matrix = buildMatrix()
 
     // Assuming each row in the matrix is equally long,
     // initialize a counter of that length with all zeroes
@@ -36,5 +37,34 @@ object Day3 : Solution(3) {
     val epsilonRate = gammaRate.map { if (it == '0') '1' else '0' }.joinToString("")
 
     return gammaRate.toInt(2) * epsilonRate.toInt(2)
+  }
+
+  fun partTwo() : Any {
+    val matrix = buildMatrix()
+    val a = matrix.filterByBitCriteria(true)
+    val b = matrix.filterByBitCriteria(false)
+    return a * b
+  }
+
+  fun List<List<Int>>.filterByBitCriteria(keepMostCommon: Boolean) : Int {
+    val rowLength = first().size
+    var listCopy = map { it }
+
+    while (listCopy.size > 1) {
+      for (i in 0 until rowLength) {
+        if (listCopy.size == 1) break
+
+        val sum = listCopy.sumOf { it[i] }
+        val cutOff = listCopy.size / 2.0
+        val mostCommon = if (sum >= cutOff) 1 else 0
+
+        listCopy = listCopy.filter {
+          if (keepMostCommon) it[i] == mostCommon
+          else it[i] != mostCommon
+        }
+      }
+    }
+
+    return listCopy.first().joinToString("").toInt(2)
   }
 }
