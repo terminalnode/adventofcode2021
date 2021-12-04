@@ -12,12 +12,12 @@ object Day3 : Solution(3) {
     }
   }
 
-  fun buildMatrix() = readLines("day3.txt")
+  private fun buildMatrix() = readLines("day3.txt")
     .map { line ->
       line.map { it.digitToInt() }
     }
 
-  fun partOne() : Any {
+  private fun partOne() : Any {
     val matrix = buildMatrix()
 
     // Assuming each row in the matrix is equally long,
@@ -39,14 +39,14 @@ object Day3 : Solution(3) {
     return gammaRate.toInt(2) * epsilonRate.toInt(2)
   }
 
-  fun partTwo() : Any {
+  private fun partTwo() : Any {
     val matrix = buildMatrix()
     val a = matrix.filterByBitCriteria(true)
     val b = matrix.filterByBitCriteria(false)
     return a * b
   }
 
-  fun List<List<Int>>.filterByBitCriteria(keepMostCommon: Boolean) : Int {
+  private fun List<List<Int>>.filterByBitCriteria(keepMostCommon: Boolean) : Int {
     val rowLength = first().size
     var listCopy = map { it }
 
