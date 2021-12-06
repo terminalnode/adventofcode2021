@@ -1,6 +1,7 @@
 package com.example.solution.day6
 
 data class LanternFish(
+  var currentDay: Int = 0,
   var daysLeft: Int = 8,
   val cycleLength: Int = 6,
 ) {
@@ -12,5 +13,9 @@ data class LanternFish(
     } else {
       false
     }
+  }
+
+  fun newFishDaysUntil(day: Int) : Sequence<LanternFish> {
+    return generateSequence(currentDay + daysLeft) { it + cycleLength }.map { LanternFish(currentDay = it) }
   }
 }

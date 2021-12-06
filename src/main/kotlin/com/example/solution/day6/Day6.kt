@@ -7,6 +7,7 @@ object Day6 : Solution(6) {
   override fun run(part: Int): Any {
     return when (part) {
       1 -> partOne()
+      2 -> partTwo()
       else -> TODO("Not yet implemented")
     }
   }
@@ -28,5 +29,18 @@ object Day6 : Solution(6) {
     }
 
     return fish.size
+  }
+
+  fun partTwo() : Any {
+    val input = readFile("day6.txt")
+      .split(",")
+      .map { it.toInt() }
+    val shoal = Shoal(input)
+
+    repeat(256) {
+      shoal.tick()
+    }
+
+    return shoal.sum()
   }
 }
