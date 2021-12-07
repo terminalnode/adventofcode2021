@@ -9,12 +9,14 @@ import com.example.solution.day3.Day3
 import com.example.solution.day4.Day4
 import com.example.solution.day5.Day5
 import com.example.solution.day6.Day6
+import com.example.solution.day7.Day7
 import io.ktor.http.*
 import java.lang.Exception
 
 object SolutionNexus {
   private val solutionsByDay = listOf(
     Day1, Day2, Day3, Day4, Day5, Day6,
+    Day7,
   ).associateBy { it.day }
 
   fun run(request: DayPart) : ResponseMessage {
