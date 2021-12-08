@@ -1,70 +1,84 @@
 package com.example.solution.day8
 
 import com.example.solution.Solution
-import java.lang.IllegalStateException
-
-/**
- * Structure of the seven segment display:
- *               aaaa
- *              b    c
- *              b    c
- *               dddd
- *              e    f
- *              e    f
- *               gggg
- */
 
 object Day8 : Solution(8) {
-  val digitMap = mapOf(
-    1 to listOf('c', 'f'),
-    2 to listOf('a', 'c', 'd', 'e', 'g'),
-    3 to listOf('a', 'c', 'd', 'f', 'g'),
-    4 to listOf('b', 'c', 'd', 'f'),
-    5 to listOf('a', 'b', 'd', 'f', 'g'),
-    6 to listOf('a', 'b', 'd', 'e', 'f', 'g'),
-    7 to listOf('a', 'c', 'f'),
-    8 to listOf('a', 'b', 'c', 'd', 'e', 'f', 'g'),
-    9 to listOf('a', 'b', 'c', 'd', 'f', 'g'),
-    0 to listOf('a', 'b', 'c', 'e', 'f', 'g'),
-  )
-
-  fun printSegment(digit: Int) {
-    val list = digitMap[digit] ?: throw IllegalStateException("Not a valid digit")
-    val a = list.getDisplayChar('a')
-    val b = list.getDisplayChar('b')
-    val c = list.getDisplayChar('c')
-    val d = list.getDisplayChar('d')
-    val e = list.getDisplayChar('e')
-    val f = list.getDisplayChar('f')
-    val g = list.getDisplayChar('g')
-    println(" $a$a$a$a")
-    println("$b    $c")
-    println("$b    $c")
-    println(" $d$d$d$d")
-    println("$e    $f")
-    println("$e    $f")
-    println(" $g$g$g$g")
-  }
-
-  fun List<Char>.getDisplayChar(char: Char) : Char {
-    return if (contains(char)) 'x' else ' '
-  }
-
   override fun run(part: Int): Any {
     return when (part) {
       1 -> partOne()
+      2 -> partTwo()
       else -> TODO("Not yet implemented")
     }
   }
 
-  fun partOne() : Any {
+  private fun partOne() : Any {
     val input = readLines("day8.txt")
       .map { line -> line.split(" | ").map { side -> side.split(" ") } }
       .map { it[1] }
-    val ones = input.sumOf { line -> line.count { code -> code.length == digitMap[1]!!.size } }
-    val fours = input.sumOf { line -> line.count { code -> code.length == digitMap[4]!!.size } }
-    val sevens = input.sumOf { line -> line.count { code -> code.length == digitMap[7]!!.size } }
-    val eights = input.sumOf { line -> line.count { code -> code.length == digitMap[8]!!.size } }
+    val ones = input.sumOf { line -> line.count { code -> code.length == 2 } }
+    val fours = input.sumOf { line -> line.count { code -> code.length == 4 } }
+    val sevens = input.sumOf { line -> line.count { code -> code.length == 3 } }
+    val eights = input.sumOf { line -> line.count { code -> code.length == 7 } }
     return ones + fours + sevens + eights
+  }
+
+  private fun partTwo() : Any {
+    /**
+     * Structure of the seven segment display:
+     *               aaaa
+     *              b    c
+     *              b    c
+     *               dddd
+     *              e    f
+     *              e    f
+     *               gggg
+     */
+
+    return readLines("day8.txt")
+      .map { line ->
+        val sides = line.split(" | ").map { side -> side.split(" ") }
+        Pair(sides[0], sides[1])
+      }.sumOf { pair ->
+        val control = pair.first.map { it.toList().sorted() }
+        val result = pair.second.map { it.toList().sorted() }
+
+        // Simple digits
+        val one = control.first { code -> code.size == 2 }.toList().sorted()
+        val four = control.first { code -> code.size == 4 }.toList().sorted()
+        val seven = control.first { code -> code.size == 3 }.toList().sorted()
+        val eight = control.first { code -> code.size == 7 }.toList().sorted()
+
+        // Sets of digits
+        val twoThreeFive = control.filter { it.size == 5 }
+        val sixNineZero = control.filter { it.size == 6 }
+
+        // Deduce zero, b and d
+        val bd = four.filter { !one.contains(it) }
+        val zero = sixNineZero.first {
+          val containsOne = it.contains(bd[0])
+          val containsTwo = it.contains(bd[1])
+          containsOne.xor(containsTwo)
+        }
+        val b = bd.first { zero.contains(it) }
+        val d = bd.first { it != b }
+
+        // Deduce the rest from this
+        val six = sixNineZero.first { it.contains(one[0]).xor(it.contains(one[1])) }
+        val three = twoThreeFive.first { it.containsAll(one) }
+        val nine = sixNineZero.first { it.contains(d) && it.containsAll(one) }
+        val five = twoThreeFive.first { it.contains(b) }
+        val two = twoThreeFive.first { !it.containsAll(three) && !it.containsAll(five) }
+
+        val newMap = mapOf(
+          one to 1, two to 2, three to 3,
+          four to 4, five to 5, six to 6,
+          seven to 7, eight to 8, nine to 9,
+          zero to 0)
+
+        result
+          .map { newMap[it]!! }
+          .joinToString("")
+          .toInt()
+      }
   }
 }
