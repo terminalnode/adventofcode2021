@@ -2,7 +2,7 @@ package com.example.solution.day9
 
 import com.example.type.IntMatrix
 
-class Point(
+data class Point(
   val x: Int,
   val y: Int,
   var value: Int? = null,
@@ -20,4 +20,8 @@ class Point(
     // Right
     Point(x+1, y-1), Point(x+1, y), Point(x+1, y+1),
   )
+
+  fun getOrthogonalNeighbors(): List<Point> = listOf(
+    Point(x-1, y), Point(x+1, y),
+    Point(x, y-1), Point(x, y+1))
 }
