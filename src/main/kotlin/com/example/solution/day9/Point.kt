@@ -1,0 +1,23 @@
+package com.example.solution.day9
+
+import com.example.type.IntMatrix
+
+class Point(
+  val x: Int,
+  val y: Int,
+  var value: Int? = null,
+) {
+  fun getValueFrom(map: IntMatrix) : Int {
+    value = map[y][x]
+    return value!!
+  }
+
+  fun getNeighbors(): List<Point> = listOf(
+    // Left
+    Point(x-1, y-1), Point(x-1, y), Point(x-1, y+1),
+    // Above / Under
+    Point(x, y-1), Point(x, y+1),
+    // Right
+    Point(x+1, y-1), Point(x+1, y), Point(x+1, y+1),
+  )
+}
