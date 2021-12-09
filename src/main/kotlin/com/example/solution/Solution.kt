@@ -2,8 +2,8 @@ package com.example.solution
 
 import com.example.model.AocException
 
-abstract class Solution(val day: Int) {
-  abstract fun run(part: Int) : Any
+abstract class Solution(val day: Int, val name: String) {
+  abstract fun run(part: Int) : String
 
   fun readFile(fileName: String) : String {
     val path = fileName.takeIf { it.startsWith('/') } ?: "/$fileName"

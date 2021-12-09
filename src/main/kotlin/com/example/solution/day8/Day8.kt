@@ -2,8 +2,8 @@ package com.example.solution.day8
 
 import com.example.solution.Solution
 
-object Day8 : Solution(8) {
-  override fun run(part: Int): Any {
+object Day8 : Solution(8, "Seven Segment Search") {
+  override fun run(part: Int): String {
     return when (part) {
       1 -> partOne()
       2 -> partTwo()
@@ -11,7 +11,7 @@ object Day8 : Solution(8) {
     }
   }
 
-  private fun partOne() : Any {
+  private fun partOne() : String {
     val input = readLines("day8.txt")
       .map { line -> line.split(" | ").map { side -> side.split(" ") } }
       .map { it[1] }
@@ -19,10 +19,10 @@ object Day8 : Solution(8) {
     val fours = input.sumOf { line -> line.count { code -> code.length == 4 } }
     val sevens = input.sumOf { line -> line.count { code -> code.length == 3 } }
     val eights = input.sumOf { line -> line.count { code -> code.length == 7 } }
-    return ones + fours + sevens + eights
+    return "${ones + fours + sevens + eights}"
   }
 
-  private fun partTwo() : Any {
+  private fun partTwo() : String {
     /**
      * Structure of the seven segment display:
      *               aaaa
@@ -79,6 +79,6 @@ object Day8 : Solution(8) {
           .map { newMap[it]!! }
           .joinToString("")
           .toInt()
-      }
+      }.toString()
   }
 }

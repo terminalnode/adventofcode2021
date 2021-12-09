@@ -2,8 +2,8 @@ package com.example.solution.day5
 
 import com.example.solution.Solution
 
-object Day5 : Solution(5) {
-  override fun run(part: Int): Any {
+object Day5 : Solution(5, "Hydrothermal Venture") {
+  override fun run(part: Int): String {
     return when (part) {
       1 -> solve(orthoOnly = true)
       2 -> solve(orthoOnly = false)
@@ -11,7 +11,7 @@ object Day5 : Solution(5) {
     }
   }
 
-  fun solve(orthoOnly: Boolean) : Any {
+  fun solve(orthoOnly: Boolean) : String {
     val lines = readLines("day5.txt").map { Line.parseInput(it) }
 
     val seenSet = mutableSetOf<Point>()
@@ -24,6 +24,6 @@ object Day5 : Solution(5) {
       }
     }
 
-    return duplicateSet.size
+    return duplicateSet.size.toString()
   }
 }

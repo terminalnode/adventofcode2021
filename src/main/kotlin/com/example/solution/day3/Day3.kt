@@ -3,8 +3,8 @@ package com.example.solution.day3
 import com.example.solution.Solution
 import kotlin.math.floor
 
-object Day3 : Solution(3) {
-  override fun run(part: Int): Any {
+object Day3 : Solution(3, "Binary Diagnostic") {
+  override fun run(part: Int): String {
     return when (part) {
       1 -> partOne()
       2 -> partTwo()
@@ -17,7 +17,7 @@ object Day3 : Solution(3) {
       line.map { it.digitToInt() }
     }
 
-  private fun partOne() : Any {
+  private fun partOne() : String {
     val matrix = buildMatrix()
 
     // Assuming each row in the matrix is equally long,
@@ -36,14 +36,14 @@ object Day3 : Solution(3) {
     val gammaRate = count.map { if (it > cutOff) 1 else 0 }.joinToString("")
     val epsilonRate = gammaRate.map { if (it == '0') '1' else '0' }.joinToString("")
 
-    return gammaRate.toInt(2) * epsilonRate.toInt(2)
+    return "${gammaRate.toInt(2) * epsilonRate.toInt(2)}"
   }
 
-  private fun partTwo() : Any {
+  private fun partTwo() : String {
     val matrix = buildMatrix()
     val a = matrix.filterByBitCriteria(true)
     val b = matrix.filterByBitCriteria(false)
-    return a * b
+    return "${a * b}"
   }
 
   private fun List<List<Int>>.filterByBitCriteria(keepMostCommon: Boolean) : Int {

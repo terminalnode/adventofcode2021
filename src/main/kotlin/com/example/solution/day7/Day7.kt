@@ -3,8 +3,8 @@ package com.example.solution.day7
 import com.example.solution.Solution
 import kotlin.math.abs
 
-object Day7 : Solution(7) {
-  override fun run(part: Int): Any {
+object Day7 : Solution(7, "The Treachery of Whales") {
+  override fun run(part: Int): String {
     return when (part) {
       1 -> partOne()
       2 -> partTwo()
@@ -12,7 +12,7 @@ object Day7 : Solution(7) {
     }
   }
 
-  fun partOne() : Any {
+  private fun partOne() : String {
     val input = readFile("day7.txt").split(",").map { it.toInt() }
 
     var minValue = Int.MAX_VALUE
@@ -28,7 +28,7 @@ object Day7 : Solution(7) {
     return "Target $minTarget, value $minValue"
   }
 
-  fun partTwo() : Any {
+  private fun partTwo() : String {
     val input = readFile("day7.txt").split(",").map { it.toInt() }
 
     var minValue = Int.MAX_VALUE

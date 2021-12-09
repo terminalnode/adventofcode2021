@@ -3,7 +3,7 @@ package com.example.solution.day1
 import com.example.solution.Solution
 import java.util.*
 
-object Day1 : Solution(1) {
+object Day1 : Solution(1, "Sonar Sweep") {
   override fun run(part: Int) =
     when (part) {
       1 -> partOne()
@@ -11,7 +11,7 @@ object Day1 : Solution(1) {
       else -> TODO("Not yet implemented")
     }
 
-  private fun partOne(): Any {
+  private fun partOne(): String {
     val depthIterator = readLines("/day1part1.txt").map { it.toInt() }.iterator()
     var previousValue = depthIterator.next()
     var count = 0
@@ -21,10 +21,10 @@ object Day1 : Solution(1) {
       previousValue = it
     }
 
-    return count
+    return "$count"
   }
 
-  private fun partTwo(): Any {
+  private fun partTwo(): String {
     val depthIterator = readLines("/day1part1.txt").map { it.toInt() }.iterator()
     val window = LinkedList(listOf(depthIterator.next(), depthIterator.next(), depthIterator.next()))
     var previousValue = window.sum()
@@ -39,6 +39,6 @@ object Day1 : Solution(1) {
       previousValue = newValue
     }
 
-    return count
+    return "$count"
   }
 }

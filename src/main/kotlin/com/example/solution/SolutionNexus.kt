@@ -2,6 +2,7 @@ package com.example.solution
 
 import com.example.model.AocException
 import com.example.model.ResponseMessage
+import com.example.model.SolutionResponse
 import com.example.plugins.DayPart
 import com.example.solution.day1.Day1
 import com.example.solution.day2.Day2
@@ -28,8 +29,12 @@ object SolutionNexus {
 
     return try {
       ResponseMessage(
-        data = solution.run(request.part),
-        status = HttpStatusCode.OK)
+        data = SolutionResponse(
+          day = request.day,
+          part = request.part,
+          name = solution.name,
+          result = solution.run(request.part),
+        ), status = HttpStatusCode.OK)
     } catch (e: NotImplementedError) {
       ResponseMessage(
         data = "No solution available for part ${request.part} of day ${request.day}",

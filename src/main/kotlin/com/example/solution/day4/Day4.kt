@@ -2,8 +2,8 @@ package com.example.solution.day4
 
 import com.example.solution.Solution
 
-object Day4 : Solution(4) {
-  override fun run(part: Int): Any {
+object Day4 : Solution(4, "Giant Squid") {
+  override fun run(part: Int): String {
     return when (part) {
       1 -> partOne()
       2 -> partTwo()
@@ -11,7 +11,7 @@ object Day4 : Solution(4) {
     }
   }
 
-  fun partOne() : Any {
+  private fun partOne() : String {
     val lines = readLines("day4.txt").iterator()
     val numbers = lines.next().split(",").map { it.toInt() }.iterator()
     val boards = BingoBoard.generateBoards(lines)
@@ -23,10 +23,10 @@ object Day4 : Solution(4) {
     }
 
     val winner = boards.first { it.checkBoard() }
-    return winner.score(number)
+    return "${winner.score(number)}"
   }
 
-  fun partTwo() : Any {
+  private fun partTwo() : String {
     val lines = readLines("day4.txt").iterator()
     val numbers = lines.next().split(",").map { it.toInt() }.iterator()
     var boards = BingoBoard.generateBoards(lines)
@@ -44,6 +44,6 @@ object Day4 : Solution(4) {
     }
 
     val winner = boards.first()
-    return winner.score(number)
+    return "${winner.score(number)}"
   }
 }

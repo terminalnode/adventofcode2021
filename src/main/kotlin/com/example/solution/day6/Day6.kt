@@ -3,8 +3,8 @@ package com.example.solution.day6
 import com.example.solution.Solution
 import java.util.*
 
-object Day6 : Solution(6) {
-  override fun run(part: Int): Any {
+object Day6 : Solution(6, "Lanternfish") {
+  override fun run(part: Int): String {
     return when (part) {
       1 -> partOne()
       2 -> partTwo()
@@ -12,7 +12,7 @@ object Day6 : Solution(6) {
     }
   }
 
-  fun partOne() : Any {
+  private fun partOne() : String {
     val initialState = readFile("day6.txt")
       .split(",")
       .map { LanternFish(it.toInt()) }
@@ -28,10 +28,10 @@ object Day6 : Solution(6) {
       fish.addAll(newFish)
     }
 
-    return fish.size
+    return fish.size.toString()
   }
 
-  fun partTwo() : Any {
+  private fun partTwo() : String {
     val input = readFile("day6.txt")
       .split(",")
       .map { it.toInt() }
@@ -41,6 +41,6 @@ object Day6 : Solution(6) {
       shoal.tick()
     }
 
-    return shoal.sum()
+    return shoal.sum().toString()
   }
 }
