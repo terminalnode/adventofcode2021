@@ -34,10 +34,11 @@ object Day10 : Solution(10, "Syntax Scoring") {
 
   private fun partOne() : String {
     val lines = readLines("day10.txt").map { it.iterator() }
-    val expectedValues = LinkedList<Char>()
     var points = 0
 
     lines.forEach { line ->
+      val expectedValues = LinkedList<Char>()
+
       while (line.hasNext()) {
         val char = line.nextChar()
         if (openingBrackets.contains(char)) {
