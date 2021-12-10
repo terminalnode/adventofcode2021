@@ -5,6 +5,7 @@ import com.example.model.ResponseMessage
 import com.example.model.SolutionResponse
 import com.example.plugins.DayPart
 import com.example.solution.day1.Day1
+import com.example.solution.day10.Day10
 import com.example.solution.day2.Day2
 import com.example.solution.day3.Day3
 import com.example.solution.day4.Day4
@@ -19,7 +20,7 @@ import java.lang.Exception
 object SolutionNexus {
   private val solutionsByDay = listOf(
     Day1, Day2, Day3, Day4, Day5, Day6,
-    Day7, Day8, Day9,
+    Day7, Day8, Day9, Day10,
   ).associateBy { it.day }
 
   fun run(request: DayPart) : ResponseMessage {
