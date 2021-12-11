@@ -5,20 +5,12 @@ import xyz.terminalnode.aoc2021.type.IntMatrix
 import java.util.*
 
 object Day09 : Solution(9, "Smoke Basin") {
-  override fun run(part: Int): String {
-    return when (part) {
-      1 -> partOne()
-      2 -> partTwo()
-      else -> TODO("Not yet implemented")
-    }
-  }
-
-  private fun partOne() : String {
+  override fun partOne() : String {
     val map = readLines("day09.txt").map { line -> line.toCharArray().map { char -> char.digitToInt() } }
     return getLowPoints(map).sumOf { it.getValueFrom(map) }.toString()
   }
 
-  private fun partTwo() : String {
+  override fun partTwo() : String {
     val map = readLines("day09.txt").map { line -> line.toCharArray().map { char -> char.digitToInt() } }
     return getLowPoints(map)
       .map { flowUp(map, it).size }

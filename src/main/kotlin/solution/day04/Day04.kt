@@ -3,15 +3,7 @@ package xyz.terminalnode.aoc2021.solution.day04
 import xyz.terminalnode.aoc2021.solution.Solution
 
 object Day04 : Solution(4, "Giant Squid") {
-  override fun run(part: Int): String {
-    return when (part) {
-      1 -> partOne()
-      2 -> partTwo()
-      else -> TODO("Not yet implemented")
-    }
-  }
-
-  private fun partOne() : String {
+  override fun partOne() : String {
     val lines = readLines("day04.txt").iterator()
     val numbers = lines.next().split(",").map { it.toInt() }.iterator()
     val boards = BingoBoard.generateBoards(lines)
@@ -26,7 +18,7 @@ object Day04 : Solution(4, "Giant Squid") {
     return "${winner.score(number)}"
   }
 
-  private fun partTwo() : String {
+  override fun partTwo() : String {
     val lines = readLines("day04.txt").iterator()
     val numbers = lines.next().split(",").map { it.toInt() }.iterator()
     var boards = BingoBoard.generateBoards(lines)

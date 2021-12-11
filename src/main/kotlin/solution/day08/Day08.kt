@@ -3,15 +3,7 @@ package xyz.terminalnode.aoc2021.solution.day08
 import xyz.terminalnode.aoc2021.solution.Solution
 
 object Day08 : Solution(8, "Seven Segment Search") {
-  override fun run(part: Int): String {
-    return when (part) {
-      1 -> partOne()
-      2 -> partTwo()
-      else -> TODO("Not yet implemented")
-    }
-  }
-
-  private fun partOne() : String {
+  override fun partOne() : String {
     val input = readLines("day08.txt")
       .map { line -> line.split(" | ").map { side -> side.split(" ") } }
       .map { it[1] }
@@ -22,7 +14,7 @@ object Day08 : Solution(8, "Seven Segment Search") {
     return "${ones + fours + sevens + eights}"
   }
 
-  private fun partTwo() : String {
+  override fun partTwo() : String {
     /**
      * Structure of the seven segment display:
      *               aaaa

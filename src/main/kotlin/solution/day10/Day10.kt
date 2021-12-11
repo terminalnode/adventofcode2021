@@ -4,14 +4,6 @@ import xyz.terminalnode.aoc2021.solution.Solution
 import java.util.*
 
 object Day10 : Solution(10, "Syntax Scoring") {
-  override fun run(part: Int): String {
-    return when (part) {
-      1 -> partOne()
-      2 -> partTwo()
-      else -> TODO("Not yet implemented")
-    }
-  }
-
   private val openingBrackets = listOf('(', '[', '{', '<')
 
   private val matchingBrackets = mapOf(
@@ -32,7 +24,7 @@ object Day10 : Solution(10, "Syntax Scoring") {
     '}' to 3,
     '>' to 4)
 
-  private fun partOne() : String {
+  override fun partOne() : String {
     val lines = readLines("day10.txt").map { it.iterator() }
     var points = 0
 
@@ -55,7 +47,7 @@ object Day10 : Solution(10, "Syntax Scoring") {
     return points.toString()
   }
 
-  private fun partTwo() : String {
+  override fun partTwo() : String {
     val lines = readLines("day10.txt").map { it.iterator() }
     val scores = mutableListOf<Long>()
 

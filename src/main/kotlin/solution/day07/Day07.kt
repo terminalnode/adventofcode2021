@@ -4,15 +4,7 @@ import xyz.terminalnode.aoc2021.solution.Solution
 import kotlin.math.abs
 
 object Day07 : Solution(7, "The Treachery of Whales") {
-  override fun run(part: Int): String {
-    return when (part) {
-      1 -> partOne()
-      2 -> partTwo()
-      else -> TODO("Not yet implemented")
-    }
-  }
-
-  private fun partOne() : String {
+  override fun partOne() : String {
     val input = readFile("day07.txt").split(",").map { it.toInt() }
 
     var minValue = Int.MAX_VALUE
@@ -28,7 +20,7 @@ object Day07 : Solution(7, "The Treachery of Whales") {
     return "Target $minTarget, value $minValue"
   }
 
-  private fun partTwo() : String {
+  override fun partTwo() : String {
     val input = readFile("day07.txt").split(",").map { it.toInt() }
 
     var minValue = Int.MAX_VALUE

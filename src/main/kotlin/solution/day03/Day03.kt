@@ -4,20 +4,12 @@ import xyz.terminalnode.aoc2021.solution.Solution
 import kotlin.math.floor
 
 object Day03 : Solution(3, "Binary Diagnostic") {
-  override fun run(part: Int): String {
-    return when (part) {
-      1 -> partOne()
-      2 -> partTwo()
-      else -> TODO("Not yet implemented")
-    }
-  }
-
   private fun buildMatrix() = readLines("day03.txt")
     .map { line ->
       line.map { it.digitToInt() }
     }
 
-  private fun partOne() : String {
+  override fun partOne() : String {
     val matrix = buildMatrix()
 
     // Assuming each row in the matrix is equally long,
@@ -39,7 +31,7 @@ object Day03 : Solution(3, "Binary Diagnostic") {
     return "${gammaRate.toInt(2) * epsilonRate.toInt(2)}"
   }
 
-  private fun partTwo() : String {
+  override fun partTwo() : String {
     val matrix = buildMatrix()
     val a = matrix.filterByBitCriteria(true)
     val b = matrix.filterByBitCriteria(false)

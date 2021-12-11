@@ -15,11 +15,12 @@ import xyz.terminalnode.aoc2021.solution.day07.Day07
 import xyz.terminalnode.aoc2021.solution.day08.Day08
 import xyz.terminalnode.aoc2021.solution.day09.Day09
 import xyz.terminalnode.aoc2021.solution.day10.Day10
+import xyz.terminalnode.aoc2021.solution.day11.Day11
 
 object SolutionNexus {
   private val solutionsByDay = listOf(
     Day01, Day02, Day03, Day04, Day05, Day06,
-    Day07, Day08, Day09, Day10,
+    Day07, Day08, Day09, Day10, Day11,
   ).associateBy { it.day }
 
   fun run(request: DayPart) : ResponseMessage {

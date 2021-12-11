@@ -3,15 +3,10 @@ package xyz.terminalnode.aoc2021.solution.day05
 import xyz.terminalnode.aoc2021.solution.Solution
 
 object Day05 : Solution(5, "Hydrothermal Venture") {
-  override fun run(part: Int): String {
-    return when (part) {
-      1 -> solve(orthoOnly = true)
-      2 -> solve(orthoOnly = false)
-      else -> TODO("Not yet implemented")
-    }
-  }
+  override fun partOne() = solve(orthoOnly = true)
+  override fun partTwo() = solve(orthoOnly = false)
 
-  fun solve(orthoOnly: Boolean) : String {
+  private fun solve(orthoOnly: Boolean) : String {
     val lines = readLines("day05.txt").map { Line.parseInput(it) }
 
     val seenSet = mutableSetOf<Point>()
