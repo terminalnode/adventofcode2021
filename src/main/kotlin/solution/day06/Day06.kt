@@ -5,7 +5,7 @@ import java.util.*
 
 object Day06 : Solution(6, "Lanternfish") {
   override fun partOne() : String {
-    val initialState = readFile("day06.txt")
+    val initialState = readFile("day01-10/day06.txt")
       .split(",")
       .map { LanternFish(it.toInt()) }
     val fish = LinkedList(initialState)
@@ -24,7 +24,7 @@ object Day06 : Solution(6, "Lanternfish") {
   }
 
   override fun partTwo() : String {
-    val input = readFile("day06.txt")
+    val input = readFile("day01-10/day06.txt")
       .split(",")
       .map { it.toInt() }
     val shoal = Shoal(input)

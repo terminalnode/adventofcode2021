@@ -25,7 +25,7 @@ object Day10 : Solution(10, "Syntax Scoring") {
     '>' to 4)
 
   override fun partOne() : String {
-    val lines = readLines("day10.txt").map { it.iterator() }
+    val lines = readLines("day01-10/day10.txt").map { it.iterator() }
     var points = 0
 
     lines.forEach { line ->
@@ -48,7 +48,7 @@ object Day10 : Solution(10, "Syntax Scoring") {
   }
 
   override fun partTwo() : String {
-    val lines = readLines("day10.txt").map { it.iterator() }
+    val lines = readLines("day01-10/day10.txt").map { it.iterator() }
     val scores = mutableListOf<Long>()
 
     lines.forEach { line ->

@@ -5,7 +5,7 @@ import kotlin.math.abs
 
 object Day07 : Solution(7, "The Treachery of Whales") {
   override fun partOne() : String {
-    val input = readFile("day07.txt").split(",").map { it.toInt() }
+    val input = readFile("day01-10/day07.txt").split(",").map { it.toInt() }
 
     var minValue = Int.MAX_VALUE
     var minTarget = 0
@@ -21,7 +21,7 @@ object Day07 : Solution(7, "The Treachery of Whales") {
   }
 
   override fun partTwo() : String {
-    val input = readFile("day07.txt").split(",").map { it.toInt() }
+    val input = readFile("day01-10/day07.txt").split(",").map { it.toInt() }
 
     var minValue = Int.MAX_VALUE
     var minTarget = 0

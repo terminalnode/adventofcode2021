@@ -5,7 +5,7 @@ import java.util.*
 
 object Day01 : Solution(1, "Sonar Sweep") {
   override fun partOne(): String {
-    val depthIterator = readLines("/day01.txt").map { it.toInt() }.iterator()
+    val depthIterator = readLines("/day01-10/day01.txt").map { it.toInt() }.iterator()
     var previousValue = depthIterator.next()
     var count = 0
 
@@ -18,7 +18,7 @@ object Day01 : Solution(1, "Sonar Sweep") {
   }
 
   override fun partTwo(): String {
-    val depthIterator = readLines("/day01.txt").map { it.toInt() }.iterator()
+    val depthIterator = readLines("/day01-10/day01.txt").map { it.toInt() }.iterator()
     val window = LinkedList(listOf(depthIterator.next(), depthIterator.next(), depthIterator.next()))
     var previousValue = window.sum()
     var count = 0

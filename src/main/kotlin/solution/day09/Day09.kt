@@ -7,12 +7,12 @@ import java.util.*
 
 object Day09 : Solution(9, "Smoke Basin") {
   override fun partOne() : String {
-    val map = readLines("day09.txt").map { line -> line.toCharArray().map { char -> char.digitToInt() } }
+    val map = readLines("day01-10/day09.txt").map { line -> line.toCharArray().map { char -> char.digitToInt() } }
     return getLowPoints(map).sumOf { it.getValueFrom(map) }.toString()
   }
 
   override fun partTwo() : String {
-    val map = readLines("day09.txt").map { line -> line.toCharArray().map { char -> char.digitToInt() } }
+    val map = readLines("day01-10/day09.txt").map { line -> line.toCharArray().map { char -> char.digitToInt() } }
     return getLowPoints(map)
       .map { flowUp(map, it).size }
       .sortedDescending()

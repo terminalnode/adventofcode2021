@@ -9,7 +9,7 @@ object Day05 : Solution(5, "Hydrothermal Venture") {
   override fun partTwo() = solve(orthogonalOnly = false)
 
   private fun solve(orthogonalOnly: Boolean) : String {
-    val lines = readLines("day05.txt").map { parseInput(it) }
+    val lines = readLines("day01-10/day05.txt").map { parseInput(it) }
 
     val seenSet = mutableSetOf<Point<Unit>>()
     val duplicateSet = mutableSetOf<Point<Unit>>()

@@ -4,7 +4,7 @@ import xyz.terminalnode.aoc2021.solution.Solution
 import kotlin.math.floor
 
 object Day03 : Solution(3, "Binary Diagnostic") {
-  private fun buildMatrix() = readLines("day03.txt")
+  private fun buildMatrix() = readLines("day01-10/day03.txt")
     .map { line ->
       line.map { it.digitToInt() }
     }

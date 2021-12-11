@@ -4,7 +4,7 @@ import xyz.terminalnode.aoc2021.solution.Solution
 
 object Day08 : Solution(8, "Seven Segment Search") {
   override fun partOne() : String {
-    val input = readLines("day08.txt")
+    val input = readLines("day01-10/day08.txt")
       .map { line -> line.split(" | ").map { side -> side.split(" ") } }
       .map { it[1] }
     val ones = input.sumOf { line -> line.count { code -> code.length == 2 } }
@@ -26,7 +26,7 @@ object Day08 : Solution(8, "Seven Segment Search") {
      *               gggg
      */
 
-    return readLines("day08.txt")
+    return readLines("day01-10/day08.txt")
       .map { line ->
         val sides = line.split(" | ").map { side -> side.split(" ") }
         Pair(sides[0], sides[1])

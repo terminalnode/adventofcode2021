@@ -4,7 +4,7 @@ import xyz.terminalnode.aoc2021.solution.Solution
 
 object Day04 : Solution(4, "Giant Squid") {
   override fun partOne() : String {
-    val lines = readLines("day04.txt").iterator()
+    val lines = readLines("day01-10/day04.txt").iterator()
     val numbers = lines.next().split(",").map { it.toInt() }.iterator()
     val boards = BingoBoard.generateBoards(lines)
 
@@ -19,7 +19,7 @@ object Day04 : Solution(4, "Giant Squid") {
   }
 
   override fun partTwo() : String {
-    val lines = readLines("day04.txt").iterator()
+    val lines = readLines("day01-10/day04.txt").iterator()
     val numbers = lines.next().split(",").map { it.toInt() }.iterator()
     var boards = BingoBoard.generateBoards(lines)
 
