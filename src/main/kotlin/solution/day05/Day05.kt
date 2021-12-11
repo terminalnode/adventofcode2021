@@ -1,17 +1,19 @@
 package xyz.terminalnode.aoc2021.solution.day05
 
 import xyz.terminalnode.aoc2021.solution.Solution
+import xyz.terminalnode.aoc2021.util.Vector
+import xyz.terminalnode.aoc2021.util.Point
 
 object Day05 : Solution(5, "Hydrothermal Venture") {
-  override fun partOne() = solve(orthoOnly = true)
-  override fun partTwo() = solve(orthoOnly = false)
+  override fun partOne() = solve(orthogonalOnly = true)
+  override fun partTwo() = solve(orthogonalOnly = false)
 
-  private fun solve(orthoOnly: Boolean) : String {
-    val lines = readLines("day05.txt").map { Line.parseInput(it) }
+  private fun solve(orthogonalOnly: Boolean) : String {
+    val lines = readLines("day05.txt").map { parseInput(it) }
 
-    val seenSet = mutableSetOf<Point>()
-    val duplicateSet = mutableSetOf<Point>()
-    lines.flatMap { it.getCoordinates(orthoOnly) }.forEach { point ->
+    val seenSet = mutableSetOf<Point<Unit>>()
+    val duplicateSet = mutableSetOf<Point<Unit>>()
+    lines.flatMap { it.getCoordinates(orthogonalOnly) }.forEach { point ->
       if (seenSet.contains(point)) {
         duplicateSet.add(point)
       } else {
@@ -21,4 +23,12 @@ object Day05 : Solution(5, "Hydrothermal Venture") {
 
     return duplicateSet.size.toString()
   }
+
+  private fun parseInput(input: String) =
+    input.split(" -> ")
+      .map { coordinate -> coordinate
+        .split(",")
+        .map { num -> num.toInt() }
+      }.map { Point<Unit>(it[0], it[1]) }
+      .let { Vector(it[0], it[1]) }
 }

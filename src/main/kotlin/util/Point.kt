@@ -1,6 +1,6 @@
-package xyz.terminalnode.aoc2021.solution.day09
+package xyz.terminalnode.aoc2021.util
 
-import xyz.terminalnode.aoc2021.type.Matrix
+typealias PointList<T> = List<Point<T>>
 
 data class Point<ValueType>(
   val x: Int,
@@ -12,7 +12,7 @@ data class Point<ValueType>(
     return value!!
   }
 
-  fun getNeighbors(): List<Point<ValueType>> = listOf(
+  fun getNeighbors(): PointList<ValueType> = listOf(
     // Left
     Point(x-1, y-1), Point(x-1, y), Point(x-1, y+1),
     // Above / Under
@@ -21,7 +21,8 @@ data class Point<ValueType>(
     Point(x+1, y-1), Point(x+1, y), Point(x+1, y+1),
   )
 
-  fun getOrthogonalNeighbors(): List<Point<ValueType>> = listOf(
+  fun getOrthogonalNeighbors(): PointList<ValueType> = listOf(
     Point(x-1, y), Point(x+1, y),
-    Point(x, y-1), Point(x, y+1))
+    Point(x, y-1), Point(x, y+1)
+  )
 }

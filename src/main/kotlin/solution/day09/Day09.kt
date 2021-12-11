@@ -1,7 +1,8 @@
 package xyz.terminalnode.aoc2021.solution.day09
 
 import xyz.terminalnode.aoc2021.solution.Solution
-import xyz.terminalnode.aoc2021.type.Matrix
+import xyz.terminalnode.aoc2021.util.Matrix
+import xyz.terminalnode.aoc2021.util.Point
 import java.util.*
 
 object Day09 : Solution(9, "Smoke Basin") {
