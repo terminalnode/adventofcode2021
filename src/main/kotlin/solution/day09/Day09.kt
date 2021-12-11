@@ -1,7 +1,7 @@
 package xyz.terminalnode.aoc2021.solution.day09
 
 import xyz.terminalnode.aoc2021.solution.Solution
-import xyz.terminalnode.aoc2021.type.IntMatrix
+import xyz.terminalnode.aoc2021.type.Matrix
 import java.util.*
 
 object Day09 : Solution(9, "Smoke Basin") {
@@ -20,16 +20,16 @@ object Day09 : Solution(9, "Smoke Basin") {
       .toString()
   }
 
-  private fun getLowPoints(map: IntMatrix): List<Point> {
+  private fun getLowPoints(map: Matrix<Int>): List<Point<Int>> {
     val maxXIndex = map[0].size - 1
     val maxYIndex = map.size - 1
     val xRange = 0..maxXIndex
     val yRange = 0..maxYIndex
 
-    val lowPoints = mutableListOf<Point>()
+    val lowPoints = mutableListOf<Point<Int>>()
     for (y in yRange) {
       for (x in xRange) {
-        val point = Point(x, y)
+        val point = Point<Int>(x, y)
         point.getValueFrom(map)
 
         val isLowPoint = point.getNeighbors()
@@ -46,7 +46,7 @@ object Day09 : Solution(9, "Smoke Basin") {
     return lowPoints
   }
 
-  private fun flowUp(map: IntMatrix, point: Point): Set<Point> {
+  private fun flowUp(map: Matrix<Int>, point: Point<Int>): Set<Point<Int>> {
     val maxXIndex = map[0].size - 1
     val maxYIndex = map.size - 1
     val xRange = 0..maxXIndex
