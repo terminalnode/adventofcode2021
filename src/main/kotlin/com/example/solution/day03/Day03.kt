@@ -1,9 +1,9 @@
-package com.example.solution.day3
+package com.example.solution.day03
 
 import com.example.solution.Solution
 import kotlin.math.floor
 
-object Day3 : Solution(3, "Binary Diagnostic") {
+object Day03 : Solution(3, "Binary Diagnostic") {
   override fun run(part: Int): String {
     return when (part) {
       1 -> partOne()

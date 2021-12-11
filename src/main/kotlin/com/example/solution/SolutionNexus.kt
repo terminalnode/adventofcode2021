@@ -4,23 +4,23 @@ import com.example.model.AocException
 import com.example.model.ResponseMessage
 import com.example.model.SolutionResponse
 import com.example.plugins.DayPart
-import com.example.solution.day1.Day1
+import com.example.solution.day01.Day01
 import com.example.solution.day10.Day10
-import com.example.solution.day2.Day2
-import com.example.solution.day3.Day3
-import com.example.solution.day4.Day4
-import com.example.solution.day5.Day5
-import com.example.solution.day6.Day6
-import com.example.solution.day7.Day7
-import com.example.solution.day8.Day8
-import com.example.solution.day9.Day9
+import com.example.solution.day02.Day02
+import com.example.solution.day03.Day03
+import com.example.solution.day04.Day04
+import com.example.solution.day05.Day05
+import com.example.solution.day06.Day06
+import com.example.solution.day07.Day07
+import com.example.solution.day08.Day08
+import com.example.solution.day09.Day09
 import io.ktor.http.*
 import java.lang.Exception
 
 object SolutionNexus {
   private val solutionsByDay = listOf(
-    Day1, Day2, Day3, Day4, Day5, Day6,
-    Day7, Day8, Day9, Day10,
+    Day01, Day02, Day03, Day04, Day05, Day06,
+    Day07, Day08, Day09, Day10,
   ).associateBy { it.day }
 
   fun run(request: DayPart) : ResponseMessage {

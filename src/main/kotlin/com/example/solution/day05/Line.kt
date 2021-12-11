@@ -1,4 +1,4 @@
-package com.example.solution.day5
+package com.example.solution.day05
 
 class Line(
   val p1: Point,

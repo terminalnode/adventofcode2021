@@ -1,10 +1,10 @@
-package com.example.solution.day9
+package com.example.solution.day09
 
 import com.example.solution.Solution
 import com.example.type.IntMatrix
 import java.util.*
 
-object Day9 : Solution(9, "Smoke Basin") {
+object Day09 : Solution(9, "Smoke Basin") {
   override fun run(part: Int): String {
     return when (part) {
       1 -> partOne()

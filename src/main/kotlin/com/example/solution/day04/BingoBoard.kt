@@ -1,4 +1,4 @@
-package com.example.solution.day4
+package com.example.solution.day04
 
 data class BingoCell(
   val value: Int,

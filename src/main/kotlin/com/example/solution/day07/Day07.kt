@@ -1,9 +1,9 @@
-package com.example.solution.day7
+package com.example.solution.day07
 
 import com.example.solution.Solution
 import kotlin.math.abs
 
-object Day7 : Solution(7, "The Treachery of Whales") {
+object Day07 : Solution(7, "The Treachery of Whales") {
   override fun run(part: Int): String {
     return when (part) {
       1 -> partOne()

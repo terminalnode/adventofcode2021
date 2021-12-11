@@ -1,8 +1,8 @@
-package com.example.solution.day4
+package com.example.solution.day04
 
 import com.example.solution.Solution
 
-object Day4 : Solution(4, "Giant Squid") {
+object Day04 : Solution(4, "Giant Squid") {
   override fun run(part: Int): String {
     return when (part) {
       1 -> partOne()

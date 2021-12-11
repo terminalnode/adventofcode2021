@@ -1,9 +1,9 @@
-package com.example.solution.day6
+package com.example.solution.day06
 
 import com.example.solution.Solution
 import java.util.*
 
-object Day6 : Solution(6, "Lanternfish") {
+object Day06 : Solution(6, "Lanternfish") {
   override fun run(part: Int): String {
     return when (part) {
       1 -> partOne()

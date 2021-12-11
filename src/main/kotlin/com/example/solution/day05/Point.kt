@@ -1,4 +1,4 @@
-package com.example.solution.day5
+package com.example.solution.day05
 
 data class Point(
   val x: Int,

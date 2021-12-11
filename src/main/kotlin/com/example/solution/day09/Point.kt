@@ -1,4 +1,4 @@
-package com.example.solution.day9
+package com.example.solution.day09
 
 import com.example.type.IntMatrix
 

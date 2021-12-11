@@ -1,8 +1,8 @@
-package com.example.solution.day5
+package com.example.solution.day05
 
 import com.example.solution.Solution
 
-object Day5 : Solution(5, "Hydrothermal Venture") {
+object Day05 : Solution(5, "Hydrothermal Venture") {
   override fun run(part: Int): String {
     return when (part) {
       1 -> solve(orthoOnly = true)

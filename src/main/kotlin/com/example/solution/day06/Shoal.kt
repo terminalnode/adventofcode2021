@@ -1,4 +1,4 @@
-package com.example.solution.day6
+package com.example.solution.day06
 
 class Shoal(initial: List<Int>) {
   val fish = (1..9).map { 0L }.toMutableList()

@@ -1,4 +1,4 @@
-package com.example.solution.day6
+package com.example.solution.day06
 
 data class LanternFish(
   var currentDay: Int = 0,
