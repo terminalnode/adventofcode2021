@@ -12,7 +12,7 @@ object Day03 : Solution(3, "Binary Diagnostic") {
     }
   }
 
-  private fun buildMatrix() = readLines("day3.txt")
+  private fun buildMatrix() = readLines("day03.txt")
     .map { line ->
       line.map { it.digitToInt() }
     }

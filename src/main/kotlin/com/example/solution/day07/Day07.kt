@@ -13,7 +13,7 @@ object Day07 : Solution(7, "The Treachery of Whales") {
   }
 
   private fun partOne() : String {
-    val input = readFile("day7.txt").split(",").map { it.toInt() }
+    val input = readFile("day07.txt").split(",").map { it.toInt() }
 
     var minValue = Int.MAX_VALUE
     var minTarget = 0
@@ -29,7 +29,7 @@ object Day07 : Solution(7, "The Treachery of Whales") {
   }
 
   private fun partTwo() : String {
-    val input = readFile("day7.txt").split(",").map { it.toInt() }
+    val input = readFile("day07.txt").split(",").map { it.toInt() }
 
     var minValue = Int.MAX_VALUE
     var minTarget = 0

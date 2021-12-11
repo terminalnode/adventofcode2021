@@ -12,7 +12,7 @@ object Day05 : Solution(5, "Hydrothermal Venture") {
   }
 
   fun solve(orthoOnly: Boolean) : String {
-    val lines = readLines("day5.txt").map { Line.parseInput(it) }
+    val lines = readLines("day05.txt").map { Line.parseInput(it) }
 
     val seenSet = mutableSetOf<Point>()
     val duplicateSet = mutableSetOf<Point>()

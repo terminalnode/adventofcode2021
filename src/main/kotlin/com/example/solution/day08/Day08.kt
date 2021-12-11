@@ -12,7 +12,7 @@ object Day08 : Solution(8, "Seven Segment Search") {
   }
 
   private fun partOne() : String {
-    val input = readLines("day8.txt")
+    val input = readLines("day08.txt")
       .map { line -> line.split(" | ").map { side -> side.split(" ") } }
       .map { it[1] }
     val ones = input.sumOf { line -> line.count { code -> code.length == 2 } }
@@ -34,7 +34,7 @@ object Day08 : Solution(8, "Seven Segment Search") {
      *               gggg
      */
 
-    return readLines("day8.txt")
+    return readLines("day08.txt")
       .map { line ->
         val sides = line.split(" | ").map { side -> side.split(" ") }
         Pair(sides[0], sides[1])

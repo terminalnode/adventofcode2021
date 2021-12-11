@@ -14,12 +14,12 @@ object Day09 : Solution(9, "Smoke Basin") {
   }
 
   private fun partOne() : String {
-    val map = readLines("day9.txt").map { line -> line.toCharArray().map { char -> char.digitToInt() } }
+    val map = readLines("day09.txt").map { line -> line.toCharArray().map { char -> char.digitToInt() } }
     return getLowPoints(map).sumOf { it.getValueFrom(map) }.toString()
   }
 
   private fun partTwo() : String {
-    val map = readLines("day9.txt").map { line -> line.toCharArray().map { char -> char.digitToInt() } }
+    val map = readLines("day09.txt").map { line -> line.toCharArray().map { char -> char.digitToInt() } }
     return getLowPoints(map)
       .map { flowUp(map, it).size }
       .sortedDescending()

@@ -13,13 +13,13 @@ object Day02 : Solution(2, "Dive!") {
 
   private fun partOne() : String {
     val submarine = Submarine()
-    readLines("day2part1.txt").forEach { submarine.readInstruction(it) }
+    readLines("day02.txt").forEach { submarine.readInstruction(it) }
     return "${submarine.calculateResult()}"
   }
 
   private fun partTwo() : String {
     val submarine = SubmarineMK2()
-    readLines("day2part1.txt").forEach { submarine.readInstruction(it) }
+    readLines("day02.txt").forEach { submarine.readInstruction(it) }
     return "${submarine.calculateResult()}"
   }
 }

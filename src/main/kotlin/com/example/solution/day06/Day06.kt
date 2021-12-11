@@ -13,7 +13,7 @@ object Day06 : Solution(6, "Lanternfish") {
   }
 
   private fun partOne() : String {
-    val initialState = readFile("day6.txt")
+    val initialState = readFile("day06.txt")
       .split(",")
       .map { LanternFish(it.toInt()) }
     val fish = LinkedList(initialState)
@@ -32,7 +32,7 @@ object Day06 : Solution(6, "Lanternfish") {
   }
 
   private fun partTwo() : String {
-    val input = readFile("day6.txt")
+    val input = readFile("day06.txt")
       .split(",")
       .map { it.toInt() }
     val shoal = Shoal(input)
