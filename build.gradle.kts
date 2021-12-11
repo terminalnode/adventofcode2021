@@ -7,10 +7,10 @@ plugins {
   kotlin("jvm") version "1.6.0"
 }
 
-group = "com.example"
+group = "xyz.terminalnode.aoc2021"
 version = "0.0.1"
 application {
-  mainClass.set("com.example.ApplicationKt")
+  mainClass.set("xyz.terminalnode.aoc2021.ApplicationKt")
 }
 
 repositories {
