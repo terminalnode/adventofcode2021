@@ -63,6 +63,17 @@ object Day11 : Solution(11, "Dumbo Octopus") {
   }
 
   override fun partTwo(): String {
-    TODO("Not yet implemented")
+    val matrix = getOctoMatrix()
+    val target = matrix.countPoints()
+    var step = 0
+
+    while (true) {
+      step++
+      matrix.increment()
+      val flashes = matrix.flash()
+      if (flashes == target) {
+        return step.toString()
+      }
+    }
   }
 }
