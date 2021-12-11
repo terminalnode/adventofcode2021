@@ -23,6 +23,11 @@ data class Point<ValueType>(
 
   fun getOrthogonalNeighbors(): PointList<ValueType> = listOf(
     Point(x-1, y), Point(x+1, y),
-    Point(x, y-1), Point(x, y+1)
+    Point(x, y-1), Point(x, y+1),
   )
 }
+
+fun <T> PointList<T>.filterRange(xRange: IntRange, yRange: IntRange) =
+  filter {
+    it.x in xRange && it.y in yRange
+  }
