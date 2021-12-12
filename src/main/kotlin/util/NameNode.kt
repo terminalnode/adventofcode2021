@@ -5,6 +5,7 @@ class NameNode(
   val connections: MutableSet<NameNode> = mutableSetOf(),
 ) {
   val isLowerCase = name == name.lowercase()
+  val isStartOrEnd = listOf("start", "end").contains(name)
 
   fun addBidirectional(node: NameNode) {
     connections.add(node)

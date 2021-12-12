@@ -1,6 +1,8 @@
 package xyz.terminalnode.aoc2021.util
 
 class NameNodePath(nodes: List<NameNode>) {
+  constructor(node: NameNode) : this(listOf(node))
+
   private val nodes = nodes.toMutableList() // shallow mutable clone
   private val nodeNames = nodes.map { it.name }.toMutableSet()
 

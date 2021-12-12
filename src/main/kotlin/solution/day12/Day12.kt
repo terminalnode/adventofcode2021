@@ -5,24 +5,35 @@ import xyz.terminalnode.aoc2021.util.NameNode
 import xyz.terminalnode.aoc2021.util.NameNodePath
 import java.util.*
 
-private fun MutableMap<String, NameNode>.addNode(name: String) : NameNode {
+private typealias NodeMap = MutableMap<String, NameNode>
+private typealias PathList = LinkedList<NameNodePath>
+
+private fun NodeMap.addNode(name: String) : NameNode {
   putIfAbsent(name, NameNode(name))
   return get(name)!!
 }
 
 object Day12 : Solution(12, "Passage Pathing") {
-  override fun partOne(): String {
+  private fun generateNodeMap(fileName: String) : NodeMap {
     val nodes = mutableMapOf<String, NameNode>()
-    readLines("day12.txt")
+    readLines(fileName)
       .forEach { line ->
         val (a, b) = line.split("-").map { nodes.addNode(it) }
         a.addBidirectional(b)
       }
 
+    return nodes
+  }
+
+  private fun initPathList(nodeMap: NodeMap) : PathList {
+    val startNode = nodeMap["start"] ?: throw IllegalStateException("Node map is missing start")
+    return PathList().also { it.add(NameNodePath(startNode)) }
+  }
+
+  override fun partOne(): String {
     var pathCount = 0
-    val ongoingPaths = LinkedList<NameNodePath>().also {
-      it.add(NameNodePath(listOf(nodes["start"]!!)))
-    }
+    val nodeMap = generateNodeMap("day12.txt")
+    val ongoingPaths = initPathList(nodeMap)
 
     while (ongoingPaths.isNotEmpty()) {
       val newPaths = ongoingPaths.removeFirst().branch()
