@@ -6,12 +6,16 @@ import java.util.*
 typealias Index = Int
 typealias Polymer = LinkedList<Char>
 typealias Insertion = Pair<Index, Char>
-typealias InsertionMap = Map<Char, Map<Char, Char>>
+typealias InsertionMap = Map<String, Char>
 
-private fun InsertionMap.get(first: Char, second: Char) = get(first)?.get(second)
+private fun InsertionMap.get(first: Char, second: Char) = this["$first$second"]
 
-private fun MutableMap<Char, Long>.increment(c: Char) {
-  this[c] = getOrDefault(c, 0) + 1
+private fun MutableMap<String, Long>.increment(s: String, n: Long) {
+  this[s] = getOrDefault(s, 0) + n
+}
+
+private fun MutableMap<Char, Long>.increment(c: Char, n: Long) {
+  this[c] = getOrDefault(c, 0) + n
 }
 
 object Day14 : Solution(14, "Extended Polymerization") {
@@ -21,66 +25,44 @@ object Day14 : Solution(14, "Extended Polymerization") {
     val polymer = Polymer(lines[0].toList())
 
     val instructions = lines.drop(2)
-      .groupBy { it.first() }
-      .mapValues { (_, secondPairArrowInsertion) ->
-        secondPairArrowInsertion.map {
-          val (secondPair, insertion) = it.drop(1).split(" -> ")
-          secondPair.first() to insertion.first()
-        }.associate { it }
+      .associate {
+        val (pair, char) = it.split(" -> ")
+        pair to char.first()
       }
 
     return polymer to instructions
   }
 
-  private fun polymerize(polymer: Polymer, map: InsertionMap) {
-    val insertions = mutableListOf<Insertion>()
-
-    polymer.reduceIndexed { index, first, second ->
-      val insert = map.get(first, second)
-      if (insert != null) {
-        insertions.add(index to insert)
-      }
-
-      return@reduceIndexed second
-    }
-
-    var indexOffset = 0
-    insertions.forEach {
-      polymer.add(indexOffset + it.first, it.second)
-      indexOffset++
-    }
-  }
-
   private fun polymerizeAndCount(
     polymer: Polymer,
-    map: InsertionMap,
+    insertMap: InsertionMap,
     times: Int,
   ) : Map<Char, Long> {
     // Initialize count map
     val countMap = mutableMapOf<Char, Long>()
-    polymer.forEach { countMap.increment(it) }
+    polymer.forEach { countMap.increment(it, 1) }
 
     // Initialize pair list
-    val todo = LinkedList<Pair<Char, Char>>()
+    var pairMap = mutableMapOf<String, Long>()
     polymer.reduce { previous, current ->
-      todo.add(Pair(previous, current))
+      pairMap.increment("$previous$current", 1)
       return@reduce current
     }
 
     // Polymerize
     repeat(times) {
-      println(it)
-      val clone = todo.toList()
-      todo.clear()
+      val newMap = mutableMapOf<String, Long>()
 
-      clone.forEach { (first, second) ->
-        val insert = map.get(first, second)
-        if (insert != null) {
-          countMap.increment(insert)
-          todo.add(first to insert)
-          todo.add(insert to second)
-        }
+      pairMap.forEach { (pair, count) ->
+        val insert = insertMap[pair] ?: return@forEach
+        countMap.increment(insert, count)
+
+        val (first, second) = pair.toList()
+        newMap.increment("$first$insert", count)
+        newMap.increment("$insert$second", count)
       }
+
+      pairMap = newMap
     }
 
     return countMap
@@ -102,7 +84,6 @@ object Day14 : Solution(14, "Extended Polymerization") {
   }
 
   override fun partTwo(): String {
-    //TODO("Solution still too slow...")
     val (polymer, instructions) = parse("day14.txt")
     val countMap = polymerizeAndCount(polymer, instructions, 40)
     return renderString(countMap)
