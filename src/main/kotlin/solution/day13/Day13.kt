@@ -4,7 +4,7 @@ import xyz.terminalnode.aoc2021.solution.Solution
 import xyz.terminalnode.aoc2021.util.*
 
 typealias Dot = Point<Char>
-fun newDot(x: Int, y: Int, value: Char = '#') = Dot(x, y, value)
+fun newDot(x: Int, y: Int, value: Char = '█') = Dot(x, y, value)
 
 fun Iterable<Dot>.applyInstruction(instruction: FoldInstruction) =
   map { dot ->
@@ -32,7 +32,7 @@ fun Iterable<Dot>.gridString() : String {
   val maxX = maxOf { it.x }
   val maxY = maxOf { it.y }
   val matrix: MutableMatrix<Dot> = (0..maxY).map { y ->
-    (0..maxX).map { x -> newDot(x, y, '.') }.toMutableList()
+    (0..maxX).map { x -> newDot(x, y, ' ') }.toMutableList()
   }.toMutableList()
 
   forEach { matrix.set(it.x, it.y, it) }
@@ -73,8 +73,6 @@ object Day13 : Solution(13, "Transparent Origami") {
       latestDots.applyInstruction(instruction)
     }
 
-    val gridString = folded.gridString()
-    println(gridString)
-    return gridString
+    return folded.gridString()
   }
 }

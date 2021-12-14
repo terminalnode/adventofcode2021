@@ -6,8 +6,23 @@ while :; do
     read part
 
     url="http://localhost:8080/day/${day}/part/${part}"
-    command -v 'jq' &> /dev/null \
-        && curl -s "$url" | jq \
-        || curl -s "$url"
+    data="$(curl -s ${url})"
+
+    if [ "$(command -v 'jq')" ]; then
+        echo "$data" | jq
+        echo -e '\n.data.result:'
+        echo "$data" | jq -r '.data.result'
+    else
+        echo -e '\nRaw JSON:'
+        echo "$data"
+        echo -e '\n.data.result:'
+
+        # Poor man's jq...
+        # Cut out everything before and including:   result":"
+        # Then cut out everything after and including:    "},"status"
+        echo -e "$data" \
+            | sed -e 's/^.*result":"//' \
+            | sed -e 's/"},"status".*$//'
+    fi
     echo
 done
