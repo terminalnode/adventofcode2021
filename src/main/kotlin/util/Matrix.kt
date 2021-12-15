@@ -15,3 +15,6 @@ fun Matrix<Point<*>>.valuesToString() =
 
 fun <T> Matrix<T>.forEachPoint(block: (element: T) -> Unit) = flatten().forEach { block(it) }
 fun <T, R> Matrix<T>.mapEachPoint(block: (element: T) -> R) : List<R> = flatten().map { block(it) }
+
+fun Matrix<*>.getYRange() = indices
+fun Matrix<*>.getXRange() = get(0).indices
