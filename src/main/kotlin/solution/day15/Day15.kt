@@ -33,6 +33,30 @@ private fun <T> Matrix<T>.getBottomRight() : T {
   return get(maxX, maxY)
 }
 
+private fun Int.incrementAndWrapOnNine(n: Int) = (this + n - 1) % 9 + 1
+
+private fun Matrix<ChitonNode>.enlarge() : Matrix<ChitonNode> {
+  val wideMatrix = map { row ->
+    (0..4).map { increment ->
+      row.map {
+        it.value!!.weight.incrementAndWrapOnNine(increment)
+      }
+    }.flatten()
+  }
+
+  val weightMatrix = (0..4).map { increment ->
+    wideMatrix.map { row ->
+      row.map { it.incrementAndWrapOnNine(increment) }
+    }
+  }.flatten()
+
+  return weightMatrix.mapIndexed { y, row ->
+    row.mapIndexed { x, weight ->
+      Point(x, y, ChitonData(weight))
+    }
+  }
+}
+
 object Day15 : Solution(15, "Chiton") {
   @Suppress("SameParameterValue")
   private fun parse(fileName: String) : Matrix<ChitonNode> {
@@ -43,10 +67,7 @@ object Day15 : Solution(15, "Chiton") {
     }
   }
 
-  override fun partOne(): String {
-    val matrix = parse("day15.txt")
-    matrix[0][0].value!!.minDistance = 0
-
+  private fun solve(matrix: Matrix<ChitonNode>) : String {
     var nodeList = matrix.get(0, 0).getNeighbours(matrix)
     while (nodeList.isNotEmpty()) {
       nodeList = nodeList.flatMap { (origin, destination) ->
@@ -58,7 +79,15 @@ object Day15 : Solution(15, "Chiton") {
     return bottomRight.value!!.minDistance.toString()
   }
 
+  override fun partOne(): String {
+    val matrix = parse("day15.txt")
+    matrix[0][0].value!!.minDistance = 0
+    return solve(matrix)
+  }
+
   override fun partTwo(): String {
-    TODO("Not yet implemented")
+    val matrix = parse("day15.txt").enlarge()
+    matrix[0][0].value!!.minDistance = 0
+    return solve(matrix)
   }
 }
