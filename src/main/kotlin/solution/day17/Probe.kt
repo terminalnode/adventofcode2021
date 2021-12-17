@@ -1,8 +1,6 @@
 package xyz.terminalnode.aoc2021.solution.day17
 
 import xyz.terminalnode.aoc2021.util.Point
-import kotlin.math.max
-import kotlin.math.min
 
 data class Probe(
   var xVelocity: Int,
@@ -25,7 +23,6 @@ data class Probe(
 
     // Due to drag, the probe's x velocity changes by 1 toward the value 0.
     if (xVelocity > 0) xVelocity--
-    else xVelocity++
 
     //Due to gravity, the probe's y velocity decreases by 1.
     yVelocity--

@@ -39,6 +39,26 @@ object Day17 : Solution(17, "Trick Shot") {
   }
 
   override fun partTwo(): String {
-    TODO("Not yet implemented")
+    val targetArea = parse(liveData)
+    val goodProbes = mutableListOf<Probe>()
+
+    val xRange = targetArea.let { 0..it.maxX }
+    val yRange = targetArea.let { -abs(it.minY)..abs(it.minY) }
+    yRange.forEach { yVelocity ->
+      xRange.forEach { xVelocity ->
+        val probe = Probe(xVelocity, yVelocity)
+        while (!targetArea.probeIsDead(probe) && !targetArea.probeIsIn(probe)) {
+          probe.step()
+        }
+        if (targetArea.probeIsIn(probe)) goodProbes.add(probe)
+      }
+    }
+
+    goodProbes.chunked(9)
+      .map { line -> line
+        .joinToString("   ") { "${it.initialXVelocity}, ${it.initialYVelocity}" }
+      }.forEach { println(it) }
+
+    return goodProbes.size.toString()
   }
 }
