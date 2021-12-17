@@ -3,9 +3,8 @@ package xyz.terminalnode.aoc2021.solution.day16
 import xyz.terminalnode.aoc2021.solution.Solution
 import xyz.terminalnode.aoc2021.util.elfcode.Biterator
 
-fun List<Boolean>.toOneZeroString() = joinToString("") { if (it) "1" else "0" }
-
 object Day16 : Solution(16, "Packet Decoder") {
+  @Suppress("SameParameterValue")
   private fun parse(fileName: String) =
     readFile(fileName)
       .asSequence()
@@ -14,17 +13,8 @@ object Day16 : Solution(16, "Packet Decoder") {
         .toString(2)
         .padStart(4, '0')
         .toList()
-      }
+      }.let { Biterator(it).parseNextPacket(null) }
 
-  override fun partOne(): String {
-    val biterator = Biterator(parse("day16.txt"))
-    val rootPacket = biterator.parseNextPacket(null)
-    return rootPacket.sumVersion().toString()
-  }
-
-  override fun partTwo(): String {
-    val biterator = Biterator(parse("day16.txt"))
-    val rootPacket = biterator.parseNextPacket(null)
-    return rootPacket.calculate().toString()
-  }
+  override fun partOne(): String = parse("day16.txt").sumVersion().toString()
+  override fun partTwo(): String = parse("day16.txt").calculate().toString()
 }
