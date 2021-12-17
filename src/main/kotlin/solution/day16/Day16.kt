@@ -6,9 +6,6 @@ import xyz.terminalnode.aoc2021.util.elfcode.Biterator
 fun List<Boolean>.toOneZeroString() = joinToString("") { if (it) "1" else "0" }
 
 object Day16 : Solution(16, "Packet Decoder") {
-  private const val type4Packet = "day16-test1.txt"
-  private const val operatorPacket = "day16-test2.txt"
-
   private fun parse(fileName: String) =
     readFile(fileName)
       .asSequence()
@@ -20,14 +17,9 @@ object Day16 : Solution(16, "Packet Decoder") {
       }
 
   override fun partOne(): String {
-    val biterator = Biterator(parse(operatorPacket))
+    val biterator = Biterator(parse("day16.txt"))
     val rootPacket = biterator.parseNextPacket(null)
-    println("---")
-    println(rootPacket)
-    println(rootPacket.children.size)
-    println("---")
-
-    TODO("Not yet implemented")
+    return rootPacket.sumVersion().toString()
   }
 
   override fun partTwo(): String {

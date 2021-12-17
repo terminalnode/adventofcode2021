@@ -2,17 +2,18 @@ package xyz.terminalnode.aoc2021.util
 
 class SubIterator<T>(
   private val limit: Long,
-  val iterator: Iterator<T>
+  val iterator: Iterator<T>,
 ) : Iterator<T> {
   private var iterations = 0
 
-  override fun hasNext() = iterator.hasNext() && iterations <= limit
+  override fun hasNext() = iterator.hasNext() && iterations < limit
 
   override fun next(): T {
-    if (iterations > limit) {
-      println("Eek")
+    if (iterations >= limit) {
       throw NoSuchElementException("This limited iterator is finished!")
     }
+
+    iterations++
     return iterator.next()
   }
 }

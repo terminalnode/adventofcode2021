@@ -7,6 +7,8 @@ class ElfPacket(
   var children: MutableList<ElfPacket> = mutableListOf(),
   var literal: Long? = null,
 ) {
+  fun sumVersion() : Int = version + children.sumOf { it.sumVersion() }
+
   override fun toString() =
     "ElfPacket{" +
         "version=$version," +
