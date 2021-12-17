@@ -23,6 +23,8 @@ object Day16 : Solution(16, "Packet Decoder") {
   }
 
   override fun partTwo(): String {
-    TODO("Not yet implemented")
+    val biterator = Biterator(parse("day16.txt"))
+    val rootPacket = biterator.parseNextPacket(null)
+    return rootPacket.calculate().toString()
   }
 }
