@@ -1,6 +1,7 @@
 package xyz.terminalnode.aoc2021.solution.day18
 
 import xyz.terminalnode.aoc2021.solution.Solution
+import java.util.*
 
 object Day18 : Solution(18, "Snailfish") {
   private fun parseLine(input: String): SFNumber {
@@ -11,23 +12,13 @@ object Day18 : Solution(18, "Snailfish") {
   }
 
   private fun reduce(number: SFNumber): SFNumber {
-    println("Reducing: $number")
     do {
       val explodingChild = number.findExplodingChild()
       val splittingChild = number.findSplittingChild()
 
-      if (explodingChild != null) {
-        print("$explodingChild exploded: ")
-        explodingChild.explode()
-      } else if (splittingChild != null) {
-        print("$splittingChild split: ")
-        splittingChild.split()
-      } else {
-        print("result: ")
-      }
-      println(number)
+      if (explodingChild != null) explodingChild.explode()
+      else splittingChild?.split()
     } while (explodingChild != null || splittingChild != null)
-    println()
     return number
   }
 
@@ -38,6 +29,21 @@ object Day18 : Solution(18, "Snailfish") {
   }
 
   override fun partTwo(): String {
-    TODO("Not yet implemented")
+    // Because the SFNumber logic relies heavily on mutation we can't parse the input lines to
+    // SFNumbers here, we will have to parse it every time we want to use it.
+    val lines = LinkedList(readLines("day18.txt"))
+    val magnitudes = mutableListOf<Long>()
+
+    while (lines.size > 1) {
+      val first = lines.pop()!!
+      lines.forEach { second ->
+        val one = reduce(parseLine(first) + parseLine(second)).magnitude
+        val two = reduce(parseLine(second) + parseLine(first)).magnitude
+        magnitudes.add(one)
+        magnitudes.add(two)
+      }
+    }
+
+    return magnitudes.maxOrNull().toString()
   }
 }
