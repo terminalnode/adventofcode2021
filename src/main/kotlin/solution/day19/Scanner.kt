@@ -1,10 +1,20 @@
 package xyz.terminalnode.aoc2021.solution.day19
 
-class Scanner(beacons: List<Beacon>) {
+class Scanner(val number: Int = 0, beacons: List<Beacon>) {
+  var position: XYZOffset? = null
+
   var allRotations: Set<List<Beacon>>
   var mainRotation: Set<Beacon>
 
   init {
+    val rotations = rebuildAllRotations(beacons)
+    allRotations = rotations
+    mainRotation = rotations.first().toSet()
+  }
+
+  fun align(offset: XYZOffset, beacons: Collection<Beacon>) {
+    position = offset
+
     val rotations = rebuildAllRotations(beacons)
     allRotations = rotations
     mainRotation = rotations.first().toSet()
@@ -45,16 +55,16 @@ class Scanner(beacons: List<Beacon>) {
 
   fun findOverlap(other: Scanner): Boolean {
     val overlappingSet = other.allRotations.firstNotNullOfOrNull { findOverlapWithBeaconList(it) }
+
     if (overlappingSet != null) {
-      val rotations = rebuildAllRotations(mainRotation.union(overlappingSet))
-      allRotations = rotations
-      mainRotation = rotations.first().toSet()
+      val (offset, mainSet) = overlappingSet
+      other.align(offset, mainSet)
       return true
     }
     return false
   }
 
-  private fun findOverlapWithBeaconList(beaconList: List<Beacon>): List<Beacon>? {
+  private fun findOverlapWithBeaconList(beaconList: List<Beacon>): Pair<XYZOffset, List<Beacon>>? {
     val offsets = mainRotation.flatMap { main ->
       beaconList.map { XYZOffset(main.x - it.x, main.y - it.y, main.z - it.z) }
     }.toSet()
@@ -62,7 +72,7 @@ class Scanner(beacons: List<Beacon>) {
     offsets.forEach { offset ->
       val offsetList = beaconList.map { it.copyOffset(offset) }
       val matching = offsetList.count { mainRotation.contains(it) }
-      if (matching >= 12) return offsetList
+      if (matching >= 12) return offset to offsetList
     }
     return null
   }
