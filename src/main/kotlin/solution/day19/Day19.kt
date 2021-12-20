@@ -2,6 +2,7 @@ package xyz.terminalnode.aoc2021.solution.day19
 
 import xyz.terminalnode.aoc2021.solution.Solution
 import java.util.*
+import kotlin.math.abs
 
 object Day19 : Solution(19, "Beacon Scanner") {
   private fun parse(lines: List<String>) : List<Scanner> {
@@ -29,38 +30,43 @@ object Day19 : Solution(19, "Beacon Scanner") {
 
   private fun parseFile(fileName: String) : Pair<Scanner, LinkedList<Scanner>> {
     val all = parse(readLines(fileName))
-    println("---")
-    println(all.size)
     val main = all.first()
     val rest = all.drop(1)
     return main to LinkedList(rest)
   }
 
-  override fun partOne(): String {
-    // 302, 303 < x < 382
-    val (main, scanners) = parseFile("day19.txt")
+  private fun alignSatellites(fileName: String): List<Scanner> {
+    val (main, scanners) = parseFile(fileName)
     main.position = XYZOffset(0,0,0)
     val aligned = mutableListOf(main)
 
-    println("Scanners in list: ${scanners.size}")
     while (scanners.isNotEmpty()) {
       val scanner = scanners.pop()
       aligned.any { it.findOverlap(scanner) }
 
       if (scanner.position == null) {
-        // Better luck next time
-        scanners.add(scanner)
+        scanners.add(scanner)  // Better luck next time
       } else {
-        println(scanners.size)
         aligned.add(scanner)
       }
     }
-    println(aligned.joinToString("\n") { "scanner ${it.number}: ${it.position}" })
-
-    return aligned.flatMap { it.mainRotation }.distinct().size.toString()
+    return aligned
   }
 
+  override fun partOne() = alignSatellites("day19.txt").flatMap { it.mainRotation }.distinct().size.toString()
+
   override fun partTwo(): String {
-    TODO("Not yet implemented")
+    val positions = alignSatellites("day19.txt").map { it.position!! }
+    val distances = mutableSetOf<Long>()
+    positions.forEach { p1 ->
+      positions.forEach { p2 ->
+        val xDist = abs(p1.x - p2.x)
+        val yDist = abs(p1.y - p2.y)
+        val zDist = abs(p1.z - p2.z)
+        distances.add(xDist + yDist + zDist)
+      }
+    }
+
+    return distances.maxOrNull().toString()
   }
 }
