@@ -1,4 +1,4 @@
-package xyz.terminalnode.aoc2021.solution.day20
+package xyz.terminalnode.aoc2021.solution.day21
 
 data class PointPosition(
   var points: Long,

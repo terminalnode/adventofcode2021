@@ -1,4 +1,4 @@
-package xyz.terminalnode.aoc2021.solution.day20
+package xyz.terminalnode.aoc2021.solution.day21
 
 import xyz.terminalnode.aoc2021.solution.Solution
 import kotlin.math.max
@@ -37,7 +37,8 @@ private class Die(var rolls: Int = 0) {
   }
 }
 
-object Day20 : Solution(20, "Dirac Dice") {
+object Day21 : Solution(21, "Dirac Dice") {
+  @Suppress("SameParameterValue")
   private fun parse(fileName: String) = readLines(fileName)
     .map { line -> line
       .last()
