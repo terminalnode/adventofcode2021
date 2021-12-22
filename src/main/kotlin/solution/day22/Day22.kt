@@ -2,6 +2,7 @@ package xyz.terminalnode.aoc2021.solution.day22
 
 import xyz.terminalnode.aoc2021.solution.Solution
 import xyz.terminalnode.aoc2021.util.Point3D
+import java.util.*
 
 object Day22 : Solution(22, "Reactor Reboot") {
   @Suppress("SameParameterValue")
@@ -19,6 +20,45 @@ object Day22 : Solution(22, "Reactor Reboot") {
   }
 
   override fun partTwo(): String {
-    TODO("Not yet implemented")
+    val inputz = listOf(
+      ReactorBlock(1..3,1..3,1..3, isOn = true),
+      ReactorBlock(2..2,2..2,2..2, isOn = false),
+      ReactorBlock(3..4,3..4,3..4, isOn = true),
+    )
+    val inputa = listOf(
+      ReactorBlock(1..1,1..1,1..1),
+      ReactorBlock(1..2,1..1,1..1),
+      ReactorBlock(1..1,1..2,1..1),
+    )
+
+    val input = parse("day22-test-p2.txt")
+    var onBlocks = mutableSetOf(input.first())
+    input.drop(1).forEach {
+      if (it.isOn) {
+        onBlocks.add(it)
+        return@forEach
+      }
+
+      onBlocks = onBlocks.flatMap { onBlock -> onBlock.remove(it) }.toMutableSet()
+    }
+
+    var overlappingBlocks = LinkedList(onBlocks)
+    val finished = mutableSetOf<ReactorBlock>()
+
+    while (overlappingBlocks.isNotEmpty()) {
+      val newOverlapping = mutableSetOf<ReactorBlock>()
+      val current = overlappingBlocks.pop()
+
+      while (overlappingBlocks.isNotEmpty()) {
+        val next = overlappingBlocks.pop()
+        if (next.hasOverlap(current)) newOverlapping.addAll(next.remove(current))
+        else newOverlapping.add(next)
+      }
+      finished.add(current)
+
+      overlappingBlocks = LinkedList(newOverlapping)
+    }
+
+    return finished.sumOf { it.getSize() }.toString()
   }
 }

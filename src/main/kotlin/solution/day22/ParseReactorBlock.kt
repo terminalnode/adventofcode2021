@@ -11,5 +11,5 @@ fun parseBlock(s: String): ReactorBlock {
       .map { it.toInt() }
       .sorted() // ensure that num1 > num2 so ranges make sense
       .let { (num1, num2) -> IntRange(num1, num2) }
-    }.let { (x, y, z) -> ReactorBlock(isOn, x, y, z) }
+    }.let { (x, y, z) -> ReactorBlock(x, y, z, isOn) }
 }
