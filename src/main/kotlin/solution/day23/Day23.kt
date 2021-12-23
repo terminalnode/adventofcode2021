@@ -16,7 +16,7 @@ object Day23 : Solution(23, "Amphipod") {
 
   override fun partOne(): String {
     // test should be: 12521
-    val rooms = parse("day23-test.txt")
+    val rooms = parse("day23.txt")
       .zip('A'..'D')
       .associate { (amphis, type) ->
         val queue = LinkedList(amphis.toList())

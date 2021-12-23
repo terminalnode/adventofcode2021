@@ -41,15 +41,12 @@ data class Hallway(
       val didHallwayToRoom = fromHallwayToRoom()
     } while (didHallwayToRoom)
 
-    /*
-    // TODO this will increase performance significantly, but is buggy right now
     do {
       val didRoomToRoom = fromRoomToRoom()
     } while (didRoomToRoom)
-     */
   }
 
-  fun fromHallwayToRoom(): Boolean {
+  private fun fromHallwayToRoom(): Boolean {
     return nodes.mapIndexedNotNull { i, node ->
       if (node.amphi == null) null
       else i to node.amphi!!
@@ -69,7 +66,7 @@ data class Hallway(
     }
   }
 
-  fun fromRoomToRoom(): Boolean {
+  private fun fromRoomToRoom(): Boolean {
     rooms.values.filter { it.canPop() }
       .forEach { originRoom ->
         val amphi = originRoom.peek()
@@ -84,8 +81,9 @@ data class Hallway(
         // Consume
         popRoomAndIncrementScore(originRoom.type)
         incrementScore(distance(origin, target) * amphi.weight)
-
         val targetRoom = rooms[amphi.type]!!
+        incrementScore(targetRoom.consume(amphi))
+
         return true
       }
 
