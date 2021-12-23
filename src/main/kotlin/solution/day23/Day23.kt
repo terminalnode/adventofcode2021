@@ -23,12 +23,10 @@ object Day23 : Solution(23, "Amphipod") {
         type to AmphiRoom(type, queue)
       }
 
-    // Starting score is the movement points wasted going in to the correct rooms
     var hallways = listOf(Hallway(rooms))
     val finished = mutableSetOf<Hallway>()
 
     while (hallways.isNotEmpty()) {
-      println(hallways.size)
       hallways = hallways
         .flatMap { it.branch() }
         .filter {
@@ -41,6 +39,31 @@ object Day23 : Solution(23, "Amphipod") {
   }
 
   override fun partTwo(): String {
-    TODO("Not yet implemented")
+    // 47609 too high
+    val rooms = parse("day23.txt")
+      .zip('A'..'D')
+      .associate { (amphis, type) ->
+        val queue = LinkedList(amphis.toList())
+        type to AmphiRoom(type, queue)
+      }
+
+    rooms['A']!!.insert(1, listOf(Amphi("D"), Amphi("D")))
+    rooms['B']!!.insert(1, listOf(Amphi("C"), Amphi("B")))
+    rooms['C']!!.insert(1, listOf(Amphi("B"), Amphi("A")))
+    rooms['D']!!.insert(1, listOf(Amphi("A"), Amphi("C")))
+
+    var hallways = listOf(Hallway(rooms))
+    val finished = mutableSetOf<Hallway>()
+
+    while (hallways.isNotEmpty()) {
+      hallways = hallways
+        .flatMap { it.branch() }
+        .filter {
+          if (it.isFinished()) finished.add(it)
+          !it.isFinished()
+        }
+    }
+
+    return finished.minOf { it.score }.toString()
   }
 }

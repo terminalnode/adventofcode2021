@@ -11,6 +11,12 @@ data class AmphiRoom(
   fun canPop() = !amphis.isEmpty()
   fun peek() = amphis.peek()!!
 
+  fun insert(pos: Int, newAmphis: Collection<Amphi>) {
+    newAmphis.reversed().forEach {
+      amphis.add(pos, it)
+    }
+  }
+
   /**
    * Return the next amphi to move and the cost for it to reach the hallway.
    * If all remaining amphis in the queue are the correct type, clear the queue. They shouldn't move.
