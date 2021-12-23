@@ -6,27 +6,18 @@ data class ReactorBlock(
   var z: IntRange,
   var isOn: Boolean = true,
 ) {
-  private fun firstX() = x.first
-  private fun lastX() = x.last
-
-  private fun firstY() = y.first
-  private fun lastY() = y.last
-
-  private fun firstZ() = z.first
-  private fun lastZ() = z.last
-
   override fun toString() = "${if (isOn) "on" else "off"} x=($x), y=($y), z=($z)"
 
-  fun hasOverlap(other: ReactorBlock) : Boolean {
+  private fun hasOverlap(other: ReactorBlock) : Boolean {
     // At least some part of all axes need to overlap for there to be an overlap in 3D space.
     return x.hasOverlap(other.x)
         && y.hasOverlap(other.y)
         && z.hasOverlap(other.z)
   }
 
-  fun getSize() = x.count().toLong() * y.count() * z.count()
+  fun getSize() = x.count().toBigInteger() * y.count().toBigInteger() * z.count().toBigInteger()
 
-  fun getKillBlock(other: ReactorBlock) : ReactorBlock {
+  private fun getKillBlock(other: ReactorBlock) : ReactorBlock {
     val xr = x.getOverlap(other.x)
     val yr = y.getOverlap(other.y)
     val zr = z.getOverlap(other.z)
