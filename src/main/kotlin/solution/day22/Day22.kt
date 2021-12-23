@@ -19,8 +19,6 @@ object Day22 : Solution(22, "Reactor Reboot") {
   }
 
   override fun partTwo(): String {
-    // 1187694947147483 too low
-    // 1187742789777792 too low
     val input = parse("day22.txt")
     var onBlocks = mutableListOf(input.first())
     input.drop(1).forEach { block ->

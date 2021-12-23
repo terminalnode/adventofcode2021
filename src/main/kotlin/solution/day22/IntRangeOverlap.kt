@@ -35,12 +35,12 @@ fun IntRange.getSurroundingRanges(other: IntRange) : List<IntRange> {
         other,
         other.last + 1..last)
       otherStartInside -> listOf(
-        first until other.first - 1,
+        first until other.first,
         other.first..last)
       otherEndInside -> listOf(
         first..other.last,
         other.last + 1..last)
-      else -> listOf(this) // shouldn't happen, this would mean this set is completely enclosed
+      else -> throw IllegalStateException("What $this.getSurroundingRanges($other)")
     }
   }
 
@@ -57,5 +57,5 @@ fun IntRange.getSurroundingRanges(other: IntRange) : List<IntRange> {
     )
   }
 
-  return listOf()
+  throw IllegalStateException("$this.getSurroundingRanges($other)")
 }
