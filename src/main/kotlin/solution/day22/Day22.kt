@@ -20,45 +20,15 @@ object Day22 : Solution(22, "Reactor Reboot") {
   }
 
   override fun partTwo(): String {
-    val inputz = listOf(
-      ReactorBlock(1..3,1..3,1..3, isOn = true),
-      ReactorBlock(2..2,2..2,2..2, isOn = false),
-      ReactorBlock(3..4,3..4,3..4, isOn = true),
-    )
-    val inputa = listOf(
-      ReactorBlock(1..1,1..1,1..1),
-      ReactorBlock(1..2,1..1,1..1),
-      ReactorBlock(1..1,1..2,1..1),
-    )
-
+    // 1187694947147483 too low
+    // 1187742789777792 too low
     val input = parse("day22-test-p2.txt")
     var onBlocks = mutableSetOf(input.first())
     input.drop(1).forEach {
-      if (it.isOn) {
-        onBlocks.add(it)
-        return@forEach
-      }
-
       onBlocks = onBlocks.flatMap { onBlock -> onBlock.remove(it) }.toMutableSet()
+      if (it.isOn) onBlocks.add(it)
     }
 
-    var overlappingBlocks = LinkedList(onBlocks)
-    val finished = mutableSetOf<ReactorBlock>()
-
-    while (overlappingBlocks.isNotEmpty()) {
-      val newOverlapping = mutableSetOf<ReactorBlock>()
-      val current = overlappingBlocks.pop()
-
-      while (overlappingBlocks.isNotEmpty()) {
-        val next = overlappingBlocks.pop()
-        if (next.hasOverlap(current)) newOverlapping.addAll(next.remove(current))
-        else newOverlapping.add(next)
-      }
-      finished.add(current)
-
-      overlappingBlocks = LinkedList(newOverlapping)
-    }
-
-    return finished.sumOf { it.getSize() }.toString()
+    return onBlocks.sumOf { it.getSize() }.toString()
   }
 }
