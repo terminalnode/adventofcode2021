@@ -5,5 +5,5 @@ data class Amphi(
   val weight: Long,
 ) {
   constructor(s: String) : this(s.first())
-  constructor(c: Char) : this(c, charToWeight(c).toLong())
+  constructor(c: Char) : this(c, charToWeight(c))
 }

@@ -28,16 +28,13 @@ object Day23 : Solution(23, "Amphipod") {
     val finished = mutableSetOf<Hallway>()
 
     while (hallways.isNotEmpty()) {
-      val newHallways = hallways.flatMap { it.branch() }
-      newHallways.forEach {
-        do { val moved = it.fromHallwayToRoom() || it.fromRoomToRoom() }
-        while (moved)
-      }
-
-      hallways = newHallways.filter {
-        if (it.isFinished()) finished.add(it)
-        !it.isFinished()
-      }
+      println(hallways.size)
+      hallways = hallways
+        .flatMap { it.branch() }
+        .filter {
+          if (it.isFinished()) finished.add(it)
+          !it.isFinished()
+        }
     }
 
     return finished.minOf { it.score }.toString()

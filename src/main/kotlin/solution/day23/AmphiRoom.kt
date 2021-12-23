@@ -35,7 +35,10 @@ data class AmphiRoom(
   /**
    * Increment internal consume counter and return the cost of moving this amphi in.
    */
-  fun consume(amphi: Amphi) = (++consumed) * amphi.weight
+  fun consume(amphi: Amphi): Long {
+    if (amphi.type != type) throw IllegalStateException("$type room tried to consume ${amphi.type}")
+    return (++consumed) * amphi.weight
+  }
 
   override fun toString(): String {
     return if (amphis.isEmpty()) "√"
