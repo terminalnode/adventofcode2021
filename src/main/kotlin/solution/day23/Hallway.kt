@@ -11,13 +11,9 @@ data class Hallway(
     return nonePopable && allEmpty
   }
 
-  fun branch(): List<Hallway> {
-    val hallways = rooms.values
-      .filter { it.canPop() }
-      .flatMap { branchFromRoom(it, true) }
-
-    return hallways
-  }
+  fun branch(runAuto: Boolean = true): List<Hallway> = rooms.values
+    .filter { it.canPop() }
+    .flatMap { branchFromRoom(it, runAuto) }
 
   private fun branchFromRoom(originRoom: AmphiRoom, runAuto: Boolean = true): List<Hallway> {
     val origin = charToNodeIndex(originRoom.type)
@@ -36,14 +32,18 @@ data class Hallway(
     }
   }
 
-  fun runAuto() {
+  private fun runAuto() {
     do {
       val didHallwayToRoom = fromHallwayToRoom()
     } while (didHallwayToRoom)
 
+    /*
+    // For some reason this gives way too high values.
+    // It does save a little bit of time, but it just doesn't work and I can't figure out why lol.
     do {
       val didRoomToRoom = fromRoomToRoom()
     } while (didRoomToRoom)
+     */
   }
 
   private fun fromHallwayToRoom(): Boolean {
@@ -66,38 +66,39 @@ data class Hallway(
     }
   }
 
-  private fun fromRoomToRoom(): Boolean {
-    rooms.values.filter { it.canPop() }
-      .forEach { originRoom ->
+  private fun fromRoomToRoom(): Boolean =
+    rooms.values
+      .filter { it.canPop() }
+      .any { originRoom ->
         val amphi = originRoom.peek()
         val origin = charToNodeIndex(originRoom.type)
         val target = charToNodeIndex(amphi.type)
+        val targetRoom = rooms[amphi.type]!!
 
         // Check if amphi can go (and be consumed, which was checked in the filter)
-        val canGo = pathFromTo(origin, target).all { nodes[it].amphi == null }
-        val canDie = rooms[amphi.type]!!.canTake(amphi)
-        if (!canGo || !canDie) return@forEach
+        val path = pathFromTo(origin, target)
+        val canGo = path.all { nodes[it].amphi == null }
+        val canDie = targetRoom.canTake(amphi)
+        if (!canGo || !canDie) return@any false
 
-        // Consume
-        popRoomAndIncrementScore(originRoom.type)
-        incrementScore(distance(origin, target) * amphi.weight)
-        val targetRoom = rooms[amphi.type]!!
-        incrementScore(targetRoom.consume(amphi))
+        // Consume amphi
+        popRoomAndIncrementScore(originRoom.type) // leave old room
+        incrementScore(path.size * amphi.weight) // traverse corridor
+        incrementScore(targetRoom.consume(amphi)) // enter new room
 
-        return true
+        return@any true
       }
-
-    return false
-  }
 
   private fun deepCopy() = Hallway(
     rooms = rooms.mapValues { it.value.deepCopy() },
     nodes = nodes.map { AmphiNode(it.amphi?.copy()) },
     score = score)
 
-  private fun popRoomAndIncrementScore(c: Char) : Amphi {
-    val (amphi, exitPrice) = rooms[c]!!.pop()
-    score += exitPrice
+  private fun popRoomAndIncrementScore(c: Char) = popRoomAndIncrementScore(rooms[c]!!)
+
+  private fun popRoomAndIncrementScore(room: AmphiRoom) : Amphi {
+    val (amphi, exitPrice) = room.pop()
+    incrementScore(exitPrice)
     return amphi
   }
 

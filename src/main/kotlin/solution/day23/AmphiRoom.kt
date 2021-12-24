@@ -6,7 +6,6 @@ data class AmphiRoom(
   val type: Char,
   private val amphis: LinkedList<Amphi>,
   private var popped: Int = 0,
-  private var consumed: Int = 0,
 ) {
   fun canPop() = !amphis.isEmpty()
   fun peek() = amphis.peek()!!
@@ -35,15 +34,17 @@ data class AmphiRoom(
 
   fun deepCopy() : AmphiRoom {
     val newAmphis = LinkedList(amphis.map { it.copy() })
-    return AmphiRoom(type, newAmphis, popped, consumed)
+    return AmphiRoom(type, newAmphis, popped)
   }
+
+  fun size() = amphis.size
 
   /**
    * Increment internal consume counter and return the cost of moving this amphi in.
    */
   fun consume(amphi: Amphi): Long {
     if (amphi.type != type) throw IllegalStateException("$type room tried to consume ${amphi.type}")
-    return (++consumed) * amphi.weight
+    return (popped-- * amphi.weight)
   }
 
   override fun toString(): String {

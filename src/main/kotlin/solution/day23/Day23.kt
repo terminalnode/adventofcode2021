@@ -14,16 +14,16 @@ object Day23 : Solution(23, "Amphipod") {
     return listOf(a1 to a2, b1 to b2, c1 to c2, d1 to d2)
   }
 
-  override fun partOne(): String {
-    // test should be: 12521
-    val rooms = parse("day23.txt")
-      .zip('A'..'D')
+  @Suppress("SameParameterValue")
+  private fun parseHallway(fileName: String) =
+    parse(fileName).zip('A'..'D')
       .associate { (amphis, type) ->
         val queue = LinkedList(amphis.toList())
         type to AmphiRoom(type, queue)
-      }
+      }.let { Hallway(it) }
 
-    var hallways = listOf(Hallway(rooms))
+  private fun solve(hallway: Hallway) : String {
+    var hallways = listOf(hallway)
     val finished = mutableSetOf<Hallway>()
 
     while (hallways.isNotEmpty()) {
@@ -38,32 +38,14 @@ object Day23 : Solution(23, "Amphipod") {
     return finished.minOf { it.score }.toString()
   }
 
+  override fun partOne() = solve(parseHallway("day23.txt"))
+
   override fun partTwo(): String {
-    // 47609 too high
-    val rooms = parse("day23.txt")
-      .zip('A'..'D')
-      .associate { (amphis, type) ->
-        val queue = LinkedList(amphis.toList())
-        type to AmphiRoom(type, queue)
-      }
-
-    rooms['A']!!.insert(1, listOf(Amphi("D"), Amphi("D")))
-    rooms['B']!!.insert(1, listOf(Amphi("C"), Amphi("B")))
-    rooms['C']!!.insert(1, listOf(Amphi("B"), Amphi("A")))
-    rooms['D']!!.insert(1, listOf(Amphi("A"), Amphi("C")))
-
-    var hallways = listOf(Hallway(rooms))
-    val finished = mutableSetOf<Hallway>()
-
-    while (hallways.isNotEmpty()) {
-      hallways = hallways
-        .flatMap { it.branch() }
-        .filter {
-          if (it.isFinished()) finished.add(it)
-          !it.isFinished()
-        }
-    }
-
-    return finished.minOf { it.score }.toString()
+    val hallway = parseHallway("day23.txt")
+    hallway.rooms['A']!!.insert(1, listOf(Amphi("D"), Amphi("D")))
+    hallway.rooms['B']!!.insert(1, listOf(Amphi("C"), Amphi("B")))
+    hallway.rooms['C']!!.insert(1, listOf(Amphi("B"), Amphi("A")))
+    hallway.rooms['D']!!.insert(1, listOf(Amphi("A"), Amphi("C")))
+    return solve(hallway)
   }
 }
