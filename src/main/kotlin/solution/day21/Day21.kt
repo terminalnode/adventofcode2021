@@ -49,7 +49,7 @@ object Day21 : Solution(21, "Dirac Dice") {
     }
 
   override fun partOne(): String {
-    val players = parse("day20.txt")
+    val players = parse("day21.txt")
     val die = Die()
 
     do {
@@ -76,7 +76,7 @@ object Day21 : Solution(21, "Dirac Dice") {
 
   override fun partTwo(): String {
     // I barely understand how this shit works lol, my head is spinning.
-    val playerIterator = parse("day20.txt")
+    val playerIterator = parse("day21.txt")
     val initUniverse = Universe(playerIterator.next(), playerIterator.next())
     var universeMap = mutableMapOf(initUniverse to 1L)
 
